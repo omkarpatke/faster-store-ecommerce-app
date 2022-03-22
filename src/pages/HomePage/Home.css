@@ -1,0 +1,82 @@
+@import url('../../components/NavBar/Navbar.css');
+
+/* home page */
+
+.main-section{
+    padding: 0 4rem 0 4rem;
+}
+
+.container-heading{
+    text-align: initial;
+}
+
+.img{
+    width: 100%;
+}
+
+.desk-img{
+    margin-top: 1.5rem;
+}
+
+.guide-container{
+    margin: 3rem 2rem 3rem 2rem;
+}
+
+.guide-content-container{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    background-color: var(--container-bg-color);
+    border-radius: 5px;
+}
+
+.guide-info{
+    padding: 4rem 6rem 4rem 7rem;
+}
+
+.guide-heading{
+    font-size: 2rem;
+}
+
+.guide-heading h1{
+    font-size: 3rem;
+}
+
+.guide-desc{
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+.top-selling-cycle-container{
+    margin: 3rem 2rem 3rem 2rem;
+}
+
+.top-selling-cycles{
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--container-bg-color);
+    border-radius: 5px;
+}
+
+.top-cycles-info{
+    margin-right: 8rem;
+    margin-top: 3rem;
+}
+
+.cycle-desc{
+    font-size: 1.8rem;
+}
+
+.cycle-price{
+    margin: 10px 0 1rem 0;
+}
+
+.link-btn{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-decoration: none;
+    transition: color .3s ease-in-out;
+}
+
+.link-btn:hover{
+    background-color: var(--black-color);
+}
