@@ -1,5 +1,6 @@
 :root{
     --dark-primary-color:#002046;
+    --green-color : green;
 }
 
 .cycles-main-container{
@@ -27,6 +28,15 @@
 .filter-name{
     background-color: var(--gray-bg-dark-color);
     padding-left: 1rem;
+}
+
+.clear-button{
+    background: none;
+    border: none;
+    margin-left: 4rem;
+    font-size: 1rem;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .price-input{
@@ -141,7 +151,8 @@ input[type='range']::-moz-range-thumb{
     background-color: var(--white-color);
     padding: 1rem;
     max-width: 20rem;
-    max-height: 26rem;
+    min-height: 15rem;
+    max-height: auto;
     border: 1px solid;
     text-align: initial;
 }
@@ -170,6 +181,15 @@ input[type='range']::-moz-range-thumb{
 
 .product-price{
     margin-bottom: 1rem;
+}
+
+.product-rating{
+    margin-left: 7rem;
+    border-radius: 8px;
+    background: var(--green-color);
+    color: var(--white-color);
+    padding: 2px 5px;
+    cursor: pointer;
 }
 
 .product-links{
