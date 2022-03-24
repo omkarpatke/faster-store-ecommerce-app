@@ -7,17 +7,22 @@ import SignUp from './pages/SignUp/SignUp';
 import WishList from './pages/WishList/WishList';
 import Navbar from './components/NavBar/Navbar';
 import Footer from './components/Footer/Footer';
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <Home />
-      <ProductListing />
-      <Cart />
-      <SignIn />
-      <SignUp />
-      <WishList />
+
+      <Routes>
+        <Route path='' element={<Home />} />
+        <Route path='/products' exact element={<ProductListing />} />
+        <Route path='/wishlist' exact element={<WishList />} />
+        <Route path='/signIn' exact element={<SignIn />} />
+        <Route path='/signUp' exact element={<SignUp />} />
+        <Route path='/cart' exact element={<Cart />} />
+      </Routes>
+
       <Footer />
     </div>
   );
