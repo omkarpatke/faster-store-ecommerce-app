@@ -1,5 +1,6 @@
-import { createContext, useContext , useEffect , useState} from "react";
+import { createContext, useContext , useEffect , useState ,useReducer} from "react";
 import axios from "axios";
+
 
 
 const ProductContext = createContext('');
@@ -9,6 +10,125 @@ const useProducts = () => useContext(ProductContext);
 const ProductContextProvider = ({children}) => {
     let [loading , setLoading] = useState(true);
     let [data , setData] = useState([]);
+    
+
+    const highToLowPrice = (a,b) => {
+       return [b.price - a.price];
+    }
+
+const lowToHighPrice = (a,b) => {
+  return [a.price - b.price];
+}
+
+//   Sorting Filter
+const sortedData = () => {
+    let sortData = [...data]
+    if(state.payload === 'high_to_low'){
+        return [...sortData.sort(highToLowPrice)]
+    }
+    else if(state.payload === 'low_to_high'){
+        console.log(state.value)
+      return [...sortData.sort(lowToHighPrice)]
+    }
+    else if(state.payload >= 10000){
+        sortData = sortData.filter(product => {
+           return parseInt(product.price , 10) <= parseInt(state.payload , 10)}) 
+   }
+return sortData;
+}
+
+  //  Ratings Filter
+  const ratingFilterData = () => {
+   let ratedData = sortedData();
+   if(state.type === '4STAR'  && state.payload === true){
+    ratedData = ratedData.filter(product => {
+           return parseInt(product.rating) > 4
+       })
+   }else if(state.type === '3STAR'  && state.payload === true){
+    ratedData = ratedData.filter(product => {
+          return parseInt(product.rating) > 3
+      })
+  }else if(state.type === '2STAR'  && state.payload === true){
+    ratedData = ratedData.filter(product => {
+          return parseInt(product.rating) > 2
+      })
+  }else if(state.type === '1STAR'  && state.payload === true){
+    ratedData = ratedData.filter(product => {
+          return parseInt(product.rating) > 1
+      })
+  }else{
+    ratedData = ratedData.filter(product => {
+          return product
+      })
+  }
+
+  return ratedData;
+  }
+
+  // Brands Filter
+  const brandFilterData = () => {
+      let brandData = ratingFilterData();
+  if(state.type === 'HERCULES' && state.payload === true){
+    brandData = brandData.filter(product => {
+          return product.brand === 'hercules'
+      })
+  }else if(state.type === 'MACH CITY' && state.payload === true){
+    brandData = brandData.filter(product => {
+          return product.brand === 'mach city'
+      })
+  }else if(state.type === 'MONTRA' && state.payload === true){
+    brandData = brandData.filter(product => {
+          return product.brand === 'montra'
+      })
+  }else if(state.type === 'ROADEO' && state.payload === true){
+    brandData = brandData.filter(product => {
+          return product.brand === 'roadeo'
+      })
+  }else if(state.type === 'BSA LADYBIRD' && state.payload === true){
+    brandData = brandData.filter(product => {
+          return product.brand === 'BSA Ladybird'
+      })
+  }
+
+  return brandData;
+}
+
+  // Bike Type Filter
+  const bikeFilterData = () => {
+      let bikeData = brandFilterData();
+  if(state.payload === 'MOUNTAIN_BIKES'){
+    bikeData = bikeData.filter(product => {
+          return product.type === 'mountain'
+      })
+  }else if(state.payload === 'CITY_BIKES'){
+    bikeData = bikeData.filter(product => {
+          return product.type === 'city'
+      })
+  }else if(state.payload === 'KIDS_BIKES'){
+    bikeData = bikeData.filter(product => {
+          return product.type === 'kids'
+      })
+  }
+
+  return bikeData;
+}
+
+  
+  // Gender Filter
+  const genderFilterData = () => {
+      let genderData = bikeFilterData();
+  if(state.type === 'MALE' && state.payload === true){
+    genderData = genderData.filter(product => {
+          return product.gender === 'male'
+      })
+  }else if(state.type === 'FEMALE' && state.payload === true){
+    genderData = genderData.filter(product => {
+          return product.gender === 'female'
+      })
+  }
+  return genderData;
+}
+
 
     const reducer =(accu, action) => {
         switch (action.type) {
@@ -69,7 +189,7 @@ const ProductContextProvider = ({children}) => {
                 return accu;
         }
     }
-
+    const [state , dispatch] = useReducer(reducer , {type:'none',payload:'none'});
     
     useEffect(() => {
         let fetchData = async () => {
@@ -86,7 +206,7 @@ const ProductContextProvider = ({children}) => {
         }
         fetchData();
     },[])
-    return (<ProductContext.Provider value={{ data:data , loading: loading , reducer }}>{children}</ProductContext.Provider>)
+    return (<ProductContext.Provider value={{ data:data , loading: loading , reducer , dispatch , genderFilterData }}>{children}</ProductContext.Provider>)
 }
 
 export {useProducts , ProductContextProvider};

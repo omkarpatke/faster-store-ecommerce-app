@@ -1,132 +1,16 @@
-import React, { useReducer } from 'react';
 import { useProducts } from '../../context/Product-context';
 import './ProductListing.css';
   
 
 export default function ProductListing() {
-    const {data , loading , reducer} = useProducts();
-    const products = data;
+    const {loading ,dispatch , genderFilterData} = useProducts();
     
-    const [state , dispatch] = useReducer(reducer , {type:'none',payload:'none'});
-
-    const highToLowPrice = (a,b) => {
-       return [b.price - a.price];
-    }
-
-const lowToHighPrice = (a,b) => {
-  return [a.price - b.price];
-}
-
-//   Sorting Filter
-const sortedData = () => {
-    let sortData = [...products]
-    if(state.payload === 'high_to_low'){
-        return [...sortData.sort(highToLowPrice)]
-    }
-    else if(state.payload === 'low_to_high'){
-      return [...sortData.sort(lowToHighPrice)]
-    }
-    else if(state.payload >= 10000){
-        sortData = sortData.filter(product => {
-           return parseInt(product.price , 10) <= parseInt(state.payload , 10)}) 
-   }
-return sortData;
-}
-
-  //  Ratings Filter
-  const ratingFilterData = () => {
-   let ratedData = sortedData();
-   if(state.type === '4STAR'  && state.payload === true){
-    ratedData = ratedData.filter(product => {
-           return parseInt(product.rating) > 4
-       })
-   }else if(state.type === '3STAR'  && state.payload === true){
-    ratedData = ratedData.filter(product => {
-          return parseInt(product.rating) > 3
-      })
-  }else if(state.type === '2STAR'  && state.payload === true){
-    ratedData = ratedData.filter(product => {
-          return parseInt(product.rating) > 2
-      })
-  }else if(state.type === '1STAR'  && state.payload === true){
-    ratedData = ratedData.filter(product => {
-          return parseInt(product.rating) > 1
-      })
-  }else{
-    ratedData = ratedData.filter(product => {
-          return product
-      })
-  }
-
-  return ratedData;
-  }
-
-  // Brands Filter
-  const brandFilterData = () => {
-      let brandData = ratingFilterData();
-  if(state.type === 'HERCULES' && state.payload === true){
-    brandData = brandData.filter(product => {
-          return product.brand === 'hercules'
-      })
-  }else if(state.type === 'MACH CITY' && state.payload === true){
-    brandData = brandData.filter(product => {
-          return product.brand === 'mach city'
-      })
-  }else if(state.type === 'MONTRA' && state.payload === true){
-    brandData = brandData.filter(product => {
-          return product.brand === 'montra'
-      })
-  }else if(state.type === 'ROADEO' && state.payload === true){
-    brandData = brandData.filter(product => {
-          return product.brand === 'roadeo'
-      })
-  }else if(state.type === 'BSA LADYBIRD' && state.payload === true){
-    brandData = brandData.filter(product => {
-          return product.brand === 'BSA Ladybird'
-      })
-  }
-
-  return brandData;
-}
-
-  // Bike Type Filter
-  const bikeFilterData = () => {
-      let bikeData = brandFilterData();
-  if(state.payload === 'MOUNTAIN_BIKES'){
-    bikeData = bikeData.filter(product => {
-          return product.type === 'mountain'
-      })
-  }else if(state.payload === 'CITY_BIKES'){
-    bikeData = bikeData.filter(product => {
-          return product.type === 'city'
-      })
-  }else if(state.payload === 'KIDS_BIKES'){
-    bikeData = bikeData.filter(product => {
-          return product.type === 'kids'
-      })
-  }
-
-  return bikeData;
-}
-
-  
-  // Gender Filter
-  const genderFilterData = () => {
-      let genderData = bikeFilterData();
-  if(state.type === 'MALE' && state.payload === true){
-    genderData = genderData.filter(product => {
-          return product.gender === 'male'
-      })
-  }else if(state.type === 'FEMALE' && state.payload === true){
-    genderData = genderData.filter(product => {
-          return product.gender === 'female'
-      })
-  }
-  return genderData;
-}
 
 const resetBtns = () => {
-    window.location.reload();
+    dispatch({type:'4STAR' , payload:false})
+    dispatch({type:'3STAR' , payload:false})
+    dispatch({type:'2STAR' , payload:false})
+    dispatch({type:'1STAR' , payload:false})
 }
 
 
@@ -158,7 +42,7 @@ const resetBtns = () => {
                 id='low_to_high'
                 type="radio"
                 name="sort"
-                onClick={() => dispatch({type:'LOW_TO_HIGH' , payload:'low_to_high'})}
+                onClick={(e) => dispatch({type:'LOW_TO_HIGH' , payload:'low_to_high' , value: e.target.checked})}
                   />
                 <label htmlFor="low_to_high">low-to-high</label>
                </div>
