@@ -1,0 +1,140 @@
+:root{
+    --border-bottom-color: #DDD;
+}
+
+.main-container{
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--gray-bg-color);
+}
+
+.cart-container{
+    display: flex;
+    padding: 2rem;
+}
+
+.selected-items-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: var(--white-color);
+    padding: 2rem 3rem;
+    margin: 0 2rem 2rem 2rem;
+}
+
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--white-color);
+    gap: 2rem 2rem;
+}
+
+.product{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color);
+    padding: 1rem;
+    max-width: 20rem;
+    height: auto;
+    border: 1px solid;
+}
+
+.item-quantity{
+    display: flex;
+    gap: 0 10px;
+}
+
+.item-quantity button{
+    padding: 0 6px;
+}
+
+.wishlist-icon{
+    font-size: 1.5rem;
+}
+
+.product-price:hover{
+    color: var(--primary-color);
+}
+
+.product-img{
+    width: 18rem;
+    transition: .4s all ease-in-out;
+}
+
+.product-img:hover{
+    transform: scale(1.05);
+}
+
+.product-details{
+    display: flex;
+    flex-direction: column;
+}
+
+.product-desc{
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.product-links{
+    margin-top: 12px;
+}
+
+.product-btn{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-decoration: none;
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    transition: .5s ease-in-out;
+}
+
+.product-btn:hover{
+    background-color: var(--white-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.summary-card{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color);
+    padding: 1rem 2rem;
+    line-height: 1.8;
+    width: 22rem;
+}
+
+.summary-items{
+    display: flex;
+    justify-content: space-between;
+    gap: 5rem;
+}
+
+.total-amount{
+    display: flex;
+    justify-content: space-between;
+    gap: 5rem;
+}
+
+.proceed-to-checkout-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 5px 0;
+    font-size: 1.1rem;
+    background-color: var(--white-color);
+    color: var(--primary-color);
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+    margin-top: 1rem;
+    transition: .5s ease-in-out;
+}
+
+.proceed-to-checkout-btn:hover{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+} 
