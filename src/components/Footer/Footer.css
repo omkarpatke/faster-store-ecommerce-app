@@ -1,0 +1,47 @@
+@import url('../NavBar/Navbar.css');
+.footer-links-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    background: var(--primary-color);
+    padding: 2rem 0 2rem 0;
+}
+
+.footer-links-container ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.footer-links-container ul h2{
+    color: var(--white-color);
+}
+
+.footer-links-container ul li a{
+    text-decoration: none;
+    color: var(--white-color);
+    list-style: none;
+}
+
+.social-media-links{
+    display: flex;
+    gap: 10px;
+}
+
+.facebook-link{
+    font-size: 1.3rem;
+}
+
+.twitter-link{
+    font-size: 1.3rem;
+}
+
+.twitter-link:hover{
+    color: var(--twitter-bg-color);
+}
+
+.linkedIn-link{
+    font-size: 1.3rem;
+}
