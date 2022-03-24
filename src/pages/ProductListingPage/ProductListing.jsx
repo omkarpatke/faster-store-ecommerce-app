@@ -1,16 +1,13 @@
 import { useProducts } from '../../context/Product-context';
 import './ProductListing.css';
-  
+
 
 export default function ProductListing() {
     const {loading ,dispatch , genderFilterData} = useProducts();
     
 
 const resetBtns = () => {
-    dispatch({type:'4STAR' , payload:false})
-    dispatch({type:'3STAR' , payload:false})
-    dispatch({type:'2STAR' , payload:false})
-    dispatch({type:'1STAR' , payload:false})
+    window.location.reload();
 }
 
 
