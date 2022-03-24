@@ -17,99 +17,112 @@ const lowToHighPrice = (a,b) => {
   return [a.price - b.price];
 }
 
-const filterData = () => {
-    let newData = [...products]
-
-  //   Sorting
+//   Sorting Filter
+const sortedData = () => {
+    let sortData = [...products]
     if(state.payload === 'high_to_low'){
-        return [...newData.sort(highToLowPrice)]
+        return [...sortData.sort(highToLowPrice)]
     }
     else if(state.payload === 'low_to_high'){
-      return [...newData.sort(lowToHighPrice)]
+      return [...sortData.sort(lowToHighPrice)]
     }
     else if(state.payload >= 10000){
-       newData = newData.filter(product => {
+        sortData = sortData.filter(product => {
            return parseInt(product.price , 10) <= parseInt(state.payload , 10)}) 
    }
+return sortData;
+}
 
-  //  Ratings
+  //  Ratings Filter
+  const ratingFilterData = () => {
+   let ratedData = sortedData();
    if(state.type === '4STAR'  && state.payload === true){
-       newData = newData.filter(product => {
+    ratedData = ratedData.filter(product => {
            return parseInt(product.rating) > 4
        })
    }else if(state.type === '3STAR'  && state.payload === true){
-      newData = newData.filter(product => {
+    ratedData = ratedData.filter(product => {
           return parseInt(product.rating) > 3
       })
   }else if(state.type === '2STAR'  && state.payload === true){
-      newData = newData.filter(product => {
+    ratedData = ratedData.filter(product => {
           return parseInt(product.rating) > 2
       })
   }else if(state.type === '1STAR'  && state.payload === true){
-      newData = newData.filter(product => {
+    ratedData = ratedData.filter(product => {
           return parseInt(product.rating) > 1
       })
   }else{
-      newData = newData.filter(product => {
+    ratedData = ratedData.filter(product => {
           return product
       })
-  } 
+  }
 
+  return ratedData;
+  }
 
-  // Brands
-
+  // Brands Filter
+  const brandFilterData = () => {
+      let brandData = ratingFilterData();
   if(state.type === 'HERCULES' && state.payload === true){
-      newData = newData.filter(product => {
+    brandData = brandData.filter(product => {
           return product.brand === 'hercules'
       })
   }else if(state.type === 'MACH CITY' && state.payload === true){
-      newData = newData.filter(product => {
+    brandData = brandData.filter(product => {
           return product.brand === 'mach city'
       })
   }else if(state.type === 'MONTRA' && state.payload === true){
-      newData = newData.filter(product => {
+    brandData = brandData.filter(product => {
           return product.brand === 'montra'
       })
   }else if(state.type === 'ROADEO' && state.payload === true){
-      newData = newData.filter(product => {
+    brandData = brandData.filter(product => {
           return product.brand === 'roadeo'
       })
   }else if(state.type === 'BSA LADYBIRD' && state.payload === true){
-      newData = newData.filter(product => {
+    brandData = brandData.filter(product => {
           return product.brand === 'BSA Ladybird'
       })
   }
 
-  // Bike Type
+  return brandData;
+}
+
+  // Bike Type Filter
+  const bikeFilterData = () => {
+      let bikeData = brandFilterData();
   if(state.payload === 'MOUNTAIN_BIKES'){
-      newData = newData.filter(product => {
+    bikeData = bikeData.filter(product => {
           return product.type === 'mountain'
       })
   }else if(state.payload === 'CITY_BIKES'){
-      newData = newData.filter(product => {
+    bikeData = bikeData.filter(product => {
           return product.type === 'city'
       })
   }else if(state.payload === 'KIDS_BIKES'){
-      newData = newData.filter(product => {
+    bikeData = bikeData.filter(product => {
           return product.type === 'kids'
       })
   }
 
+  return bikeData;
+}
+
   
   // Gender Filter
-
+  const genderFilterData = () => {
+      let genderData = bikeFilterData();
   if(state.type === 'MALE' && state.payload === true){
-      newData = newData.filter(product => {
+    genderData = genderData.filter(product => {
           return product.gender === 'male'
       })
   }else if(state.type === 'FEMALE' && state.payload === true){
-      newData = newData.filter(product => {
+    genderData = genderData.filter(product => {
           return product.gender === 'female'
       })
   }
-
-
-  return newData;
+  return genderData;
 }
 
 const resetBtns = () => {
@@ -117,7 +130,7 @@ const resetBtns = () => {
 }
 
 
-  let filteredData = filterData();
+  let filteredData = genderFilterData();
     
   return (
     <>
