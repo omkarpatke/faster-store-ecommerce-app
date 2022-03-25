@@ -27,7 +27,6 @@ const sortedData = () => {
         return [...sortData.sort(highToLowPrice)]
     }
     else if(state.payload === 'low_to_high'){
-        console.log(state.value)
       return [...sortData.sort(lowToHighPrice)]
     }
     else if(state.payload >= 10000){
