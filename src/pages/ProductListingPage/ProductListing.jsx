@@ -119,11 +119,15 @@ const resetBtns = () => {
                <div className="check-box-input">
                 <input 
                 id='4STAR'
-                type="checkbox"
+                type="radio"
+                name='rating'
                 checked={fourStar}
                 onChange={(e) => {
                     dispatch({type:'4STAR' , payload:e.target.checked})
                     setFourstar(prev => !prev);
+                    setThreestar(false);
+                     setTwostar(false);
+                     setOnestar(false);
                     }
                 }
                 />
@@ -133,11 +137,15 @@ const resetBtns = () => {
                <div className="check-box-input">
                 <input 
                 id='3STAR'
-                type="checkbox"
+                type="radio"
+                name='rating'
                 checked={threeStar}
                 onClick={(e) =>{
                      dispatch({type:'3STAR' , payload:e.target.checked})
                      setThreestar(prev => !prev);
+                     setFourstar(false);
+                     setTwostar(false);
+                     setOnestar(false);
                     }}
                 />
                 <label htmlFor="3STAR"> 3 Star &Above</label>
@@ -146,11 +154,15 @@ const resetBtns = () => {
                <div className="check-box-input">
                 <input
                 id='2STAR' 
-                type="checkbox"
+                type="radio"
+                name='rating'
                 checked={twoStar}
                 onClick={(e) => {
                     dispatch({type:'2STAR' , payload:e.target.checked})
                     setTwostar(prev => !prev);
+                    setFourstar(false);
+                     setThreestar(false);
+                     setOnestar(false);
                 }}
                 />
                 <label htmlFor="2STAR"> 2 Star &Above</label>
@@ -159,11 +171,15 @@ const resetBtns = () => {
                <div className="check-box-input">
                 <input 
                 id='1STAR'
-                type="checkbox"
+                type="radio"
+                name='rating'
                 checked={oneStar}
                 onClick={(e) => {
                     dispatch({type:'1STAR' , payload:e.target.checked})
                     setOnestar(prev => !prev);
+                    setFourstar(false);
+                     setTwostar(false);
+                     setThreestar(false);
                 }}
                 />
                 <label htmlFor="1STAR"> 1 Star &Above</label>
