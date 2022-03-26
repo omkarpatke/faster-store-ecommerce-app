@@ -8,8 +8,8 @@ const useProducts = () => useContext(ProductContext);
 
 
 const ProductContextProvider = ({children}) => {
-    let [loading , setLoading] = useState(true);
-    let [data , setData] = useState([]);
+    const [loading , setLoading] = useState(true);
+    const [data , setData] = useState([]);
     
 
     const highToLowPrice = (a,b) => {
