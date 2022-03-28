@@ -22,6 +22,19 @@
     gap: 2rem 2rem;
 }
 
+.wishlist-remove-btn{
+    font-size: 1.2rem;
+    text-align: end;
+    margin-right: 1rem;
+    transition: .1s ease;
+}
+
+.wishlist-remove-btn:hover{
+    cursor: pointer;
+}
+
+
+
 .product{
     display: flex;
     flex-direction: column;
