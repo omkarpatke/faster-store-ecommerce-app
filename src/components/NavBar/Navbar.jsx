@@ -3,8 +3,18 @@ import './Navbar.css';
 import NavLogo from '../../Images/cycle-favicon.png';
 import ProfileImg from '../../Images/pngwing.com.png';
 import {  Link } from "react-router-dom";
+import { useWishlist } from '../../context/wishlist-context';
 
 export default function Navbar() {
+
+    let state = useWishlist();
+    let wishlistLength
+    if(state.wishlistState.type === 'ADD_TO_WISHLIST'){
+      wishlistLength = state.wishlistState.payload.length
+    }else if(state.wishlistState.type === 'ADD_TO_WISHLIST' || state.wishlistState.payload === 'none'){
+        wishlistLength = 0;
+    }
+
   return (
     <>
     <div className="sub-header">
@@ -25,7 +35,7 @@ export default function Navbar() {
 
         <div className="wishlist">
             <Link to='/wishlist' className="nav-wishlist-icon" title="WishList"><i className="lni lni-heart"></i></Link>
-            <span className="wishlist-items-number">4</span>
+            <span className="wishlist-items-number">{wishlistLength}</span>
         </div>
 
         <div className="cart">

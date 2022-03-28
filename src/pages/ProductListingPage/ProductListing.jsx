@@ -1,14 +1,30 @@
+import { addToWishlist, getWishlist } from '../../api-calls/api-calls';
 import { useProducts } from '../../context/Product-context';
+import { useWishlist } from '../../context/wishlist-context';
+import {useEffect  , useState} from 'react'
 import './ProductListing.css';
 
 
 export default function ProductListing() {
     const {loading ,dispatch , genderFilterData} = useProducts();
-    
+    const {wishlistDispatch} = useWishlist();
+    const [wishlist , setWishlist] = useState([]);
 
 const resetBtns = () => {
     window.location.reload();
 }
+
+const addItemToWishlist = async(product) => {
+    const response = await addToWishlist(product);
+    wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
+    setWishlist(product);
+}
+
+useEffect(() => {
+  const response = getWishlist();
+  wishlistDispatch({type: 'WISHLIST' , payload: response.wishlist});
+},[wishlist])
+
 
 
   let filteredData = genderFilterData();
@@ -201,14 +217,14 @@ const resetBtns = () => {
 
        <div className="products-container">
            {loading ? 'Loading...' :
-           filteredData.map(({img , desc ,price ,id, rating}) => (
-              <div className="product" key={id}>
+           filteredData.map((product) => (
+              <div className="product" key={product.id}>
                 <a href="#wishlist">
-                 <i className="product-wishlist-icon lni lni-heart"></i>
+                 <i className="product-wishlist-icon lni lni-heart" onClick={() => addItemToWishlist(product)}></i>
                 </a>
-                <img className="product-img" src={img} alt="cycle-img"/>
-                <div className="product-desc">{desc}</div>
-                <div className="product-price">MRP: ₹{price} <span className='product-rating'>{rating}  <i className="lni lni-star-filled"></i></span></div>
+                <img className="product-img" src={product.img} alt="cycle-img"/>
+                <div className="product-desc">{product.desc}</div>
+                <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>
                 <div className="product-links">
                     <button className="product-btn">KNOW MORE</button>
                     <button className="product-btn">Add To Cart</button>
