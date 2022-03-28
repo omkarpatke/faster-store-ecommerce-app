@@ -8,7 +8,6 @@ const headers = {authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOi
 const addToWishlist = async(product) => {
     try {
         const response = await axios.post(`/api/user/wishlist` , {product} , {headers})
-        console.log(response)
         return {wishlist : response.data.wishlist}
     } catch (err) {
         console.log(err);
@@ -34,7 +33,6 @@ const removeFromWishlist = async(product) => {
 const getWishlist = async() => {
     try {
         const response = await axios.get(`/api/user/wishlist` , {headers})
-        console.log(response)
         return {wishlist : response.data.wishlist}
     } catch (err) {
         console.log(err);

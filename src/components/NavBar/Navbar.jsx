@@ -7,11 +7,11 @@ import { useWishlist } from '../../context/wishlist-context';
 
 export default function Navbar() {
 
-    let state = useWishlist();
+    let wishlistState = useWishlist();
     let wishlistLength
-    if(state.wishlistState.type === 'ADD_TO_WISHLIST' || state.wishlistState.type === 'REMOVE_FROM_WISHLIST'){
-      wishlistLength = state.wishlistState.payload.length
-    }else if(state.wishlistState.type === 'ADD_TO_WISHLIST' || state.wishlistState.payload === 'none'){
+    if(wishlistState.wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.wishlistState.type === 'REMOVE_FROM_WISHLIST'){
+      wishlistLength = wishlistState.wishlistState.payload.length
+    }else if(wishlistState.wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.wishlistState.payload === 'none'){
         wishlistLength = 0;
     }
 
