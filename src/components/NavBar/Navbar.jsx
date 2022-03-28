@@ -9,7 +9,7 @@ export default function Navbar() {
 
     let state = useWishlist();
     let wishlistLength
-    if(state.wishlistState.type === 'ADD_TO_WISHLIST'){
+    if(state.wishlistState.type === 'ADD_TO_WISHLIST' || state.wishlistState.type === 'REMOVE_FROM_WISHLIST'){
       wishlistLength = state.wishlistState.payload.length
     }else if(state.wishlistState.type === 'ADD_TO_WISHLIST' || state.wishlistState.payload === 'none'){
         wishlistLength = 0;

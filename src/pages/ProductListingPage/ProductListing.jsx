@@ -9,6 +9,7 @@ export default function ProductListing() {
     const {loading ,dispatch , genderFilterData} = useProducts();
     const {wishlistDispatch} = useWishlist();
     const [wishlist , setWishlist] = useState([]);
+    const [color , setColor] = useState('');
 
 const resetBtns = () => {
     window.location.reload();
@@ -18,6 +19,7 @@ const addItemToWishlist = async(product) => {
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
     setWishlist(product);
+    filteredData = filteredData.map(item => item.id === product.id ? setColor('red') : setColor(''))
 }
 
 useEffect(() => {
@@ -219,9 +221,7 @@ useEffect(() => {
            {loading ? 'Loading...' :
            filteredData.map((product) => (
               <div className="product" key={product.id}>
-                <a href="#wishlist">
-                 <i className="product-wishlist-icon lni lni-heart" onClick={() => addItemToWishlist(product)}></i>
-                </a>
+                 <i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)} style={{backgroundColor:color}}></i>
                 <img className="product-img" src={product.img} alt="cycle-img"/>
                 <div className="product-desc">{product.desc}</div>
                 <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>

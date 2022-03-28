@@ -4,15 +4,15 @@ import { useWishlist } from '../../context/wishlist-context';
 import './WishList.css';
 
 export default function WishList() {
-    let state = useWishlist();
+    let {wishlistState , wishlistDispatch} = useWishlist();
     let wishlist
-    if(state.wishlistState.type === 'ADD_TO_WISHLIST'){
-      wishlist = state.wishlistState.payload
+    if(wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.type === 'REMOVE_FROM_WISHLIST'){
+      wishlist = wishlistState.payload
     }
 
-    const removeItemFromWishlist = async(id) => {
-      const response = await removeFromWishlist(id);
-      console.log(response);
+    const removeItemFromWishlist = async(product) => {
+      const response = await removeFromWishlist(product);
+      wishlistDispatch({type: 'REMOVE_FROM_WISHLIST' , payload: response.wishlist})
     }
 
 
@@ -24,7 +24,7 @@ export default function WishList() {
             <div className="wishlist-items">
                 {wishlist && wishlist.map((product , index) => (
                     <div className="product" key={index}>
-                    <p className='wishlist-remove-btn' onClick={() => removeItemFromWishlist(product.id)}>X</p>
+                    <p className='wishlist-remove-btn' onClick={() => removeItemFromWishlist(product)}>X</p>
                     <img className="product-img" src={product.img} alt="cycle-img"/>
                     <div className="product-desc">{product.desc}</div>
                     <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>

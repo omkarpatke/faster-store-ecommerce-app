@@ -169,8 +169,9 @@ input[type='range']::-moz-range-thumb{
     cursor: pointer;
 }
 
-.product-wishlist-icon{
+#product-wishlist-icon{
     font-size: 1.4rem;
+    cursor: pointer;
 }
 
 .product-desc{

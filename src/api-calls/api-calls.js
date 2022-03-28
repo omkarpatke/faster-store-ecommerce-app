@@ -15,11 +15,17 @@ const addToWishlist = async(product) => {
     }
 } 
 
-const removeFromWishlist = async(id) => {
+const removeFromWishlist = async(product) => {
     try {
-        const response = await axios.delete(`/api/user/wishlist/${id}` , {headers})
-        console.log(response)
-        return {type:'UPDATED_WISHLIST', wishlist : response.data.wishlist}
+        const response = await axios({
+            method: "delete",
+            url: `/api/user/wishlist/${product._id}`,
+            headers: headers ,
+            data: {
+              product: product
+            },
+          });
+        return { wishlist : response.data.wishlist}
     } catch (err) {
         console.log(err);
     }
