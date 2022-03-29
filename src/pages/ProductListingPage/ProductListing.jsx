@@ -5,15 +5,7 @@ import {useEffect} from 'react'
 import './ProductListing.css';
 
 import { useCartlist } from '../../context/cart-context';
-
-
-export default function ProductListing() {
-    const {loading ,dispatch , genderFilterData} = useProducts();
-    const {wishlistDispatch} = useWishlist();
-    const {cartDispatch} = useCartlist();
-
 import {useState} from 'react';
-
 
 
 export default function ProductListing() {
@@ -41,8 +33,8 @@ export default function ProductListing() {
 
 
 
-
-
+  const {wishlistDispatch} = useWishlist();
+  const {cartDispatch} = useCartlist();
   const {loading ,dispatch , genderFilterData} = useProducts();
 
 
@@ -69,7 +61,6 @@ const resetBtns = () => {
 }
 
 const addItemToWishlist = async(product) => {
-    
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
 }
@@ -388,5 +379,4 @@ useEffect(() => {
        </div>
     </div>
     </>
-  )
-}
+  )}
