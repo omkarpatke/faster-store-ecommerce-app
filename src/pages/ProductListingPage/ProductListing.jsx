@@ -1,11 +1,10 @@
 import { addToCart, addToWishlist, getCartlist, getWishlist } from '../../api-calls/api-calls';
 import { useProducts } from '../../context/Product-context';
 import { useWishlist } from '../../context/wishlist-context';
-import {useEffect} from 'react'
+import {useEffect , useState} from 'react'
 import './ProductListing.css';
 
 import { useCartlist } from '../../context/cart-context';
-import {useState} from 'react';
 
 
 export default function ProductListing() {
