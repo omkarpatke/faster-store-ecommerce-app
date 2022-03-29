@@ -41,7 +41,7 @@ export default function Navbar() {
         </div>
        <div className="nav-contents">
         <div className="search-bar">
-            <input type="text" placeholder="Search" className="search-input"/>
+            <input type="search" placeholder="Search" className="search-input"/>
         </div>
 
         <div className="wishlist">

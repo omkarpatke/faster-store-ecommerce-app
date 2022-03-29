@@ -8,8 +8,8 @@ const useProducts = () => useContext(ProductContext);
 
 
 const ProductContextProvider = ({children}) => {
-    let [loading , setLoading] = useState(true);
-    let [data , setData] = useState([]);
+    const [loading , setLoading] = useState(true);
+    const [data , setData] = useState([]);
     
 
     const highToLowPrice = (a,b) => {
@@ -27,7 +27,6 @@ const sortedData = () => {
         return [...sortData.sort(highToLowPrice)]
     }
     else if(state.payload === 'low_to_high'){
-        console.log(state.value)
       return [...sortData.sort(lowToHighPrice)]
     }
     else if(state.payload >= 10000){
