@@ -1,15 +1,17 @@
-import { addToWishlist, getWishlist } from '../../api-calls/api-calls';
+import { addToCart, addToWishlist, getCartlist, getWishlist } from '../../api-calls/api-calls';
 import { useProducts } from '../../context/Product-context';
 import { useWishlist } from '../../context/wishlist-context';
 import {useEffect  , useState} from 'react'
 import './ProductListing.css';
+import { useCartlist } from '../../context/cart-context';
 
 
 export default function ProductListing() {
     const {loading ,dispatch , genderFilterData} = useProducts();
     const {wishlistDispatch} = useWishlist();
+    const {cartState,cartDispatch} = useCartlist();
     const [wishlist , setWishlist] = useState([]);
-    const [color , setColor] = useState('');
+    const [cartlist , setCartlist] = useState([]);
 
 const resetBtns = () => {
     window.location.reload();
@@ -19,13 +21,26 @@ const addItemToWishlist = async(product) => {
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
     setWishlist(product);
-    filteredData = filteredData.map(item => item.id === product.id ? setColor('red') : setColor(''))
+}
+
+const addItemToCartlist = async(product) => {
+    const response = await addToCart(product);
+    console.log(response)
+    cartDispatch({type: 'ADD_TO_CART' , payload : response});
+    setCartlist(product);
 }
 
 useEffect(() => {
   const response = getWishlist();
   wishlistDispatch({type: 'WISHLIST' , payload: response.wishlist});
 },[wishlist])
+
+useEffect(() => {
+    const response = getCartlist();
+    console.log(response)
+    cartDispatch({type: 'CARTLIST' , payload: response});
+    console.log(cartState)
+  },[cartlist])
 
 
 
@@ -221,13 +236,13 @@ useEffect(() => {
            {loading ? 'Loading...' :
            filteredData.map((product) => (
               <div className="product" key={product.id}>
-                 <i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)} style={{backgroundColor:color}}></i>
+                 <i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
                 <img className="product-img" src={product.img} alt="cycle-img"/>
                 <div className="product-desc">{product.desc}</div>
                 <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>
                 <div className="product-links">
                     <button className="product-btn">KNOW MORE</button>
-                    <button className="product-btn">Add To Cart</button>
+                    <button className="product-btn" onClick={() => addItemToCartlist(product)}>Add To Cart</button>
                 </div>
               </div>
             ))} 

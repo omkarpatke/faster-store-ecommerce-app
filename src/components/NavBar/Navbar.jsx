@@ -4,6 +4,7 @@ import NavLogo from '../../Images/cycle-favicon.png';
 import ProfileImg from '../../Images/pngwing.com.png';
 import {  Link } from "react-router-dom";
 import { useWishlist } from '../../context/wishlist-context';
+import { useCartlist } from '../../context/cart-context';
 
 export default function Navbar() {
 
@@ -13,6 +14,17 @@ export default function Navbar() {
       wishlistLength = wishlistState.wishlistState.payload.length
     }else if(wishlistState.wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.wishlistState.payload === 'none'){
         wishlistLength = 0;
+    }
+
+    let cartState = useCartlist();
+    let cartlistLength;
+    console.log(cartState)
+    if(cartState.cartState.type === 'ADD_TO_CART'){
+        cartlistLength = cartState.cartState.payload.cartlist.length
+    }else if(cartState.cartState.type === 'REMOVE_FROM_CARTLIST'){
+        cartlistLength = cartState.cartState.payload.length
+    }else if(cartState.cartState.type === 'ADD_TO_CART' || cartState.cartState.payload === 'none'){
+        cartlistLength = 0;
     }
 
   return (
@@ -40,7 +52,7 @@ export default function Navbar() {
 
         <div className="cart">
             <Link to='/cart' className="cart-icon" title="Cart"><i className="lni lni-cart-full"></i></Link>
-            <span className="cart-items-number">3</span>
+            <span className="cart-items-number">{cartlistLength}</span>
         </div>
 
         <div className="user-profile">

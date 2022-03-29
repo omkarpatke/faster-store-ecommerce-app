@@ -14,6 +14,16 @@ const addToWishlist = async(product) => {
     }
 } 
 
+const addToCart = async(product) => {
+    try {
+        const response = await axios.post(`/api/user/cart` , {product} , {headers});
+        console.log(response)
+        return {cartlist : response.data.cart}
+    } catch (err) {
+        console.log(err);
+    }
+} 
+
 const removeFromWishlist = async(product) => {
     try {
         const response = await axios({
@@ -30,6 +40,23 @@ const removeFromWishlist = async(product) => {
     }
 }
 
+const removeFromCartlist = async(product) => {
+    try {
+        const response = await axios({
+            method: "delete",
+            url: `/api/user/cart/${product._id}`,
+            headers: headers ,
+            data: {
+              product: product
+            },
+          });
+          console.log(response)
+        return { cartlist : response}
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 const getWishlist = async() => {
     try {
         const response = await axios.get(`/api/user/wishlist` , {headers})
@@ -39,5 +66,15 @@ const getWishlist = async() => {
     }
 } 
 
+const getCartlist = async() => {
+    try {
+        const response = await axios.get(`/api/user/cart` , {headers})
+        console.log(response.data)
+        return {cart : response.data.cart}
+    } catch (err) {
+        console.log(err);
+    }
+} 
 
-export {addToWishlist , removeFromWishlist , getWishlist}
+
+export {addToWishlist , removeFromWishlist , getWishlist , addToCart , removeFromCartlist , getCartlist}
