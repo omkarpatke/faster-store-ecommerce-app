@@ -57,7 +57,6 @@ const addItemToWishlist = async(product) => {
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
     let productAddedInWishlist = data.map(item => item._id === product._id ? {...item ,isAddedInWishlist : true} : item)
-    console.log(productAddedInWishlist)
     setData(productAddedInWishlist)
  }
 
