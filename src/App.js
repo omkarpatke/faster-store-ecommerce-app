@@ -8,12 +8,13 @@ import WishList from './pages/WishList/WishList';
 import Navbar from './components/NavBar/Navbar';
 import Footer from './components/Footer/Footer';
 import { Routes, Route } from "react-router-dom";
+import Mockman from 'mockman-js';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-
+      <br />
       <Routes>
         <Route path='' element={<Home />} />
         <Route path='/products' exact element={<ProductListing />} />
@@ -21,8 +22,8 @@ function App() {
         <Route path='/sign-in' exact element={<SignIn />} />
         <Route path='/sign-up' exact element={<SignUp />} />
         <Route path='/cart' exact element={<Cart />} />
+        <Route path='/mock' exact element={<Mockman />} />
       </Routes>
-
       <Footer />
     </div>
   );
