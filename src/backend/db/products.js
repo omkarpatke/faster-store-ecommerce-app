@@ -15,6 +15,7 @@ export const products = [
   //   brand:'BSA',
   //   type: 'kids',
   //   gender:'male',
+  //     quantity: 1,
   // },
   // {
   //   _id: uuid(),
@@ -25,6 +26,7 @@ export const products = [
   //   brand:'roadeo',
   //   type: 'city',
   //   gender:'male',
+  //   quantity: 1,
   // },
   // {
   //   _id: uuid(),
@@ -35,6 +37,7 @@ export const products = [
   //   brand:'roadeo',
   //   type: 'city',
   //   gender:'male',
+  //   quantity: 1,
   // },
   {
     _id: uuid(),
@@ -45,6 +48,7 @@ export const products = [
     brand:'roadeo',
     type: 'city',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -54,7 +58,8 @@ export const products = [
     rating: '3',
     brand:'roadeo',
     type: 'city',
-    gender:'male', 
+    gender:'male',
+    quantity: 1, 
   },
   {
     _id: uuid(),
@@ -65,6 +70,7 @@ export const products = [
     brand:'montra',
     type: 'city',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -75,6 +81,7 @@ export const products = [
     brand:'BSA Ladybird',
     type: 'city',
     gender:'female',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -85,6 +92,7 @@ export const products = [
     brand:'montra',
     type: 'city',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -95,6 +103,7 @@ export const products = [
     brand:'mach city',
     type: 'city',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -104,7 +113,8 @@ export const products = [
     rating: '2',
     brand:'mach city',
     type: 'city',
-    gender:'male', 
+    gender:'male',
+    quantity: 1, 
   },
   {
     _id: uuid(),
@@ -114,7 +124,8 @@ export const products = [
     rating: '3',
     brand:'hercules',
     type: 'city',
-    gender:'male', 
+    gender:'male',
+    quantity: 1, 
   },
   {
     _id: uuid(),
@@ -125,6 +136,7 @@ export const products = [
     brand:'mach city',
     type: 'city',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -135,6 +147,7 @@ export const products = [
     brand:'mach city',
     type: 'city',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -145,6 +158,7 @@ export const products = [
     brand:'mach city',
     type: 'kids',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -154,7 +168,8 @@ export const products = [
     rating: '5',
     brand:'mach city',
     type: 'mountain',
-    gender:'male', 
+    gender:'male',
+    quantity: 1, 
   },
   {
     _id: uuid(),
@@ -165,6 +180,7 @@ export const products = [
     brand:'mach city',
     type: 'kids',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -175,6 +191,7 @@ export const products = [
     brand:'mach city',
     type: 'city',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -185,6 +202,7 @@ export const products = [
     brand:'hercules',
     type: 'kids',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -195,6 +213,7 @@ export const products = [
     brand:'hercules',
     type: 'kids',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -205,6 +224,7 @@ export const products = [
     brand:'mach city',
     type: 'city',
     gender:'male',
+    quantity: 1,
   },
   {
     _id: uuid(),
@@ -215,5 +235,6 @@ export const products = [
     brand:'mach city',
     type: 'city',
     gender:'male',
+    quantity: 1,
   },
 ];

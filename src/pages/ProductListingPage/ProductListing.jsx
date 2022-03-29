@@ -18,6 +18,7 @@ const resetBtns = () => {
 }
 
 const addItemToWishlist = async(product) => {
+    
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
     setWishlist(product);

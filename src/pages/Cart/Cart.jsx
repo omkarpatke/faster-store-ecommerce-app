@@ -1,15 +1,16 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { removeFromCartlist } from '../../api-calls/api-calls';
 import { useCartlist } from '../../context/cart-context';
 import './Cart.css';
 
 export default function Cart() {
-    let {cartState , cartDispatch} = useCartlist();
-    let cartlist
+    let {cartState , cartDispatch} = useCartlist([]);
+    let cartlist;
+    console.log(cartlist)
     if(cartState.type === 'ADD_TO_CART'){
-        cartlist = cartState.payload.cartlist;
+        cartlist = cartState.payload.cartlist
     }else if(cartState.type === 'REMOVE_FROM_CARTLIST'){
-        cartlist = cartState.payload;
+        cartlist = cartState.payload
     }
 
     const removeItemFromCartlist = async(product) => {
