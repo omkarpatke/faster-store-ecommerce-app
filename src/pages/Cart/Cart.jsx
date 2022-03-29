@@ -64,7 +64,7 @@ export default function Cart() {
             setTotalAmount(totalItemPrice - totalDiscountPrice + deliveryCharges)
         }
         getTotalAmount();
-    },[cartData , increment , decrement]);
+    },[cartData , increment , decrement ,deliveryCharges ,totalDiscountPrice , totalItemPrice]);
 
     
     const removeItemFromCartlist = async(product) => {
