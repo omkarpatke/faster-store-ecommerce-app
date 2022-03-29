@@ -211,6 +211,7 @@ input[type='range']::-moz-range-thumb{
 }
 
 .product-btn:hover{
+    cursor: pointer;
     background-color: var(--dark-primary-color);
 }
 

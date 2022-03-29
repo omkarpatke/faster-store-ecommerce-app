@@ -41,8 +41,8 @@
     background-color: var(--white-color);
     padding: 1rem;
     max-width: 19rem;
-    min-height: 26rem;
-    max-height: 26rem;
+    min-height: 27rem;
+    max-height: 27rem;
     box-shadow: 1px 1px 8px 3px rgba(0,0,0,0.1);
 }
 

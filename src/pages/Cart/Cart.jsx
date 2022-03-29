@@ -22,7 +22,7 @@ export default function Cart() {
     <div className="main-container">
         <div className="cart-container">
             <div className="selected-items-container">
-            <h2>Shopping Cart</h2>
+            <h2 className='cart-container-heading'>Shopping Cart</h2>
               <div className="products">
               {cartlist && cartlist.map((item , index) => (
                   <div className="product" key={index}>
@@ -30,7 +30,7 @@ export default function Cart() {
                   <img className="product-img" src="https://www.trackandtrail.in/sites/default/files/styles/listing_image/public/romer3_0.png?itok=tePICCz7" alt="cycle-img"/>
                   <div className="product-details">
                      <div className="product-desc">DSA Roamer 20T Magic Blue</div>
-                     <div className="product-price">MRP: ₹4,149</div>
+                     <div className="product-price">MRP: ₹4,149 <span className='product-rating'>{item.rating}  <i className="lni lni-star-filled"></i></span></div>
                       <div className="item-quantity">
                          <button> + </button>
                          <div className="quantity"> 1 </div>
@@ -39,14 +39,12 @@ export default function Cart() {
                   </div>
                   <div className="product-links">
                      <button className="product-btn">Know More</button>
-                     <button className="product-btn" onClick={() => removeItemFromCartlist(item)}>Remove From Cart</button>
+                     <button className="product-btn" onClick={() => removeItemFromCartlist(item)}>Remove Item</button>
                   </div>
               </div> 
               ))}
               </div>
             </div>
-        </div>
-        </div>
             <div className="order-summary">
                 <div className="summary-card">
                     <div className="summary-heading">Price Details</div>
@@ -70,6 +68,10 @@ export default function Cart() {
                     </div>
                     <button className="proceed-to-checkout-btn">Proceed To Checkout</button>
                 </div>
+        </div>
+    
+            </div>
+
             </div>
     </>
   )
