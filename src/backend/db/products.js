@@ -15,7 +15,8 @@ export const products = [
   //   brand:'BSA',
   //   type: 'kids',
   //   gender:'male',
-  //     quantity: 1,
+  //   quantity: 1,
+  //   isAddedInWishlist: false,
   // },
   // {
   //   _id: uuid(),
@@ -27,6 +28,7 @@ export const products = [
   //   type: 'city',
   //   gender:'male',
   //   quantity: 1,
+  //   isAddedInWishlist: false,
   // },
   // {
   //   _id: uuid(),
@@ -38,6 +40,7 @@ export const products = [
   //   type: 'city',
   //   gender:'male',
   //   quantity: 1,
+  //   isAddedInWishlist: false,
   // },
   {
     _id: uuid(),
@@ -49,6 +52,7 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -59,7 +63,8 @@ export const products = [
     brand:'roadeo',
     type: 'city',
     gender:'male',
-    quantity: 1, 
+    quantity: 1,
+    isAddedInWishlist: false, 
   },
   {
     _id: uuid(),
@@ -71,6 +76,7 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -82,6 +88,7 @@ export const products = [
     type: 'city',
     gender:'female',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -93,6 +100,7 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -104,6 +112,7 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -114,7 +123,8 @@ export const products = [
     brand:'mach city',
     type: 'city',
     gender:'male',
-    quantity: 1, 
+    quantity: 1,
+    isAddedInWishlist: false, 
   },
   {
     _id: uuid(),
@@ -125,7 +135,8 @@ export const products = [
     brand:'hercules',
     type: 'city',
     gender:'male',
-    quantity: 1, 
+    quantity: 1,
+    isAddedInWishlist: false, 
   },
   {
     _id: uuid(),
@@ -137,6 +148,7 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -148,6 +160,7 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -159,6 +172,7 @@ export const products = [
     type: 'kids',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -169,7 +183,8 @@ export const products = [
     brand:'mach city',
     type: 'mountain',
     gender:'male',
-    quantity: 1, 
+    quantity: 1,
+    isAddedInWishlist: false, 
   },
   {
     _id: uuid(),
@@ -181,6 +196,7 @@ export const products = [
     type: 'kids',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -192,6 +208,7 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -203,6 +220,7 @@ export const products = [
     type: 'kids',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -214,6 +232,7 @@ export const products = [
     type: 'kids',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -225,6 +244,7 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
   {
     _id: uuid(),
@@ -236,5 +256,6 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
+    isAddedInWishlist: false,
   },
 ];

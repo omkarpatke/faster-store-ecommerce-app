@@ -3,13 +3,10 @@ import { useProducts } from '../../context/Product-context';
 import { useWishlist } from '../../context/wishlist-context';
 import {useEffect , useState} from 'react'
 import './ProductListing.css';
-
 import { useCartlist } from '../../context/cart-context';
 
 
 export default function ProductListing() {
-
-
   const [fourStar , setFourstar] = useState();
   const [threeStar , setThreestar] = useState();
   const [twoStar , setTwostar] = useState();
@@ -29,14 +26,11 @@ export default function ProductListing() {
   const [rangeInput , setRangeInput] = useState(8000);
   
 
-
-
-
   const {wishlistDispatch} = useWishlist();
   const {cartDispatch} = useCartlist();
-  const {loading ,dispatch , genderFilterData} = useProducts();
+  const {loading ,dispatch , data , setData} = useProducts();
 
-
+  
 
 const resetBtns = () => {
     dispatch({type:'4STAR' , payload:false})
@@ -62,7 +56,10 @@ const resetBtns = () => {
 const addItemToWishlist = async(product) => {
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
-}
+    let productAddedInWishlist = data.map(item => item._id === product._id ? {...item ,isAddedInWishlist : true} : item)
+    console.log(productAddedInWishlist)
+    setData(productAddedInWishlist)
+ }
 
 const addItemToCartlist = async(product) => {
     const response = await addToCart(product);
@@ -77,12 +74,9 @@ useEffect(() => {
 useEffect(() => {
     const response = getCartlist();
     cartDispatch({type: 'CARTLIST' , payload: response});
-  },[cartDispatch])
+},[cartDispatch])
 
-
-
-  let filteredData = genderFilterData();
-    
+  
   return (
     <>
     <div className="cycles-main-container">
@@ -363,9 +357,9 @@ useEffect(() => {
 
        <div className="products-container">
            {loading ? 'Loading...' :
-           filteredData.map((product) => (
-              <div className="product" key={product.id}>
-                 <i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
+           data && data.map((product) => (
+              <div className="product" key={product._id}>
+                 <i className={product.isAddedInWishlist ? 'lni lni-heart-filled' : 'lni lni-heart'} id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
                 <img className="product-img" src={product.img} alt="cycle-img"/>
                 <div className="product-desc">{product.desc}</div>
                 <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>

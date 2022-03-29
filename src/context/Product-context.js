@@ -10,7 +10,6 @@ const useProducts = () => useContext(ProductContext);
 const ProductContextProvider = ({children}) => {
     const [loading , setLoading] = useState(true);
     const [data , setData] = useState([]);
-    
 
     const highToLowPrice = (a,b) => {
        return [b.price - a.price];
@@ -205,7 +204,7 @@ return sortData;
         }
         fetchData();
     },[])
-    return (<ProductContext.Provider value={{ data:data , loading: loading , reducer , dispatch , genderFilterData }}>{children}</ProductContext.Provider>)
+    return (<ProductContext.Provider value={{ data , loading , reducer , dispatch , genderFilterData , setData}}>{children}</ProductContext.Provider>)
 }
 
 export {useProducts , ProductContextProvider};
