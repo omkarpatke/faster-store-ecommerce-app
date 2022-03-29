@@ -9,7 +9,7 @@ import { useCartlist } from '../../context/cart-context';
 export default function ProductListing() {
     const {loading ,dispatch , genderFilterData} = useProducts();
     const {wishlistDispatch} = useWishlist();
-    const {cartState,cartDispatch} = useCartlist();
+    const {cartDispatch} = useCartlist();
     const [wishlist , setWishlist] = useState([]);
     const [cartlist , setCartlist] = useState([]);
 
@@ -25,7 +25,6 @@ const addItemToWishlist = async(product) => {
 
 const addItemToCartlist = async(product) => {
     const response = await addToCart(product);
-    console.log(response)
     cartDispatch({type: 'ADD_TO_CART' , payload : response});
     setCartlist(product);
 }
@@ -37,9 +36,7 @@ useEffect(() => {
 
 useEffect(() => {
     const response = getCartlist();
-    console.log(response)
     cartDispatch({type: 'CARTLIST' , payload: response});
-    console.log(cartState)
   },[cartlist])
 
 

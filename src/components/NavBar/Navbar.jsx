@@ -18,7 +18,6 @@ export default function Navbar() {
 
     let cartState = useCartlist();
     let cartlistLength;
-    console.log(cartState)
     if(cartState.cartState.type === 'ADD_TO_CART'){
         cartlistLength = cartState.cartState.payload.cartlist.length
     }else if(cartState.cartState.type === 'REMOVE_FROM_CARTLIST'){

@@ -17,7 +17,6 @@ const addToWishlist = async(product) => {
 const addToCart = async(product) => {
     try {
         const response = await axios.post(`/api/user/cart` , {product} , {headers});
-        console.log(response)
         return {cartlist : response.data.cart}
     } catch (err) {
         console.log(err);
@@ -50,7 +49,6 @@ const removeFromCartlist = async(product) => {
               product: product
             },
           });
-          console.log(response)
         return { cartlist : response}
     } catch (err) {
         console.log(err);
@@ -69,7 +67,6 @@ const getWishlist = async() => {
 const getCartlist = async() => {
     try {
         const response = await axios.get(`/api/user/cart` , {headers})
-        console.log(response.data)
         return {cart : response.data.cart}
     } catch (err) {
         console.log(err);

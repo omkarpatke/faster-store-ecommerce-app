@@ -14,7 +14,6 @@ export default function Cart() {
 
     const removeItemFromCartlist = async(product) => {
         const response = await removeFromCartlist(product);
-        console.log(response.cartlist.data.cart);
         cartDispatch({type:'REMOVE_FROM_CARTLIST' , payload:response.cartlist.data.cart})
     }
     
