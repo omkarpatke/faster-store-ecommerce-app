@@ -1,7 +1,7 @@
 import { addToCart, addToWishlist, getCartlist, getWishlist } from '../../api-calls/api-calls';
 import { useProducts } from '../../context/Product-context';
 import { useWishlist } from '../../context/wishlist-context';
-import {useEffect  , useState} from 'react'
+import {useEffect} from 'react'
 import './ProductListing.css';
 import { useCartlist } from '../../context/cart-context';
 
@@ -10,8 +10,6 @@ export default function ProductListing() {
     const {loading ,dispatch , genderFilterData} = useProducts();
     const {wishlistDispatch} = useWishlist();
     const {cartDispatch} = useCartlist();
-    const [wishlist , setWishlist] = useState([]);
-    const [cartlist , setCartlist] = useState([]);
 
 const resetBtns = () => {
     window.location.reload();
@@ -21,24 +19,22 @@ const addItemToWishlist = async(product) => {
     
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
-    setWishlist(product);
 }
 
 const addItemToCartlist = async(product) => {
     const response = await addToCart(product);
     cartDispatch({type: 'ADD_TO_CART' , payload : response});
-    setCartlist(product);
 }
 
 useEffect(() => {
   const response = getWishlist();
   wishlistDispatch({type: 'WISHLIST' , payload: response.wishlist});
-},[wishlist])
+},[wishlistDispatch])
 
 useEffect(() => {
     const response = getCartlist();
     cartDispatch({type: 'CARTLIST' , payload: response});
-  },[cartlist])
+  },[cartDispatch])
 
 
 

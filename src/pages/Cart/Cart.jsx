@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React from 'react';
 import { removeFromCartlist } from '../../api-calls/api-calls';
 import { useCartlist } from '../../context/cart-context';
 import './Cart.css';
