@@ -5,7 +5,11 @@ import './Cart.css';
 
 export default function Cart() {
     let {cartState , cartDispatch} = useCartlist();
-    let [cartData , setCartData] = useState();
+    let [cartData , setCartData] = useState([]);
+    let [totalItemPrice , setTotalItemsPrice] = useState(0);
+    let [totalDiscountPrice , setTotalDiscountPrice] = useState(0);
+    let [deliveryCharges , setDeliveryCharges] = useState(0);
+    let [totalAmount , setTotalAmount] = useState(0);
 
     
     useEffect(() => {
@@ -15,32 +19,58 @@ export default function Cart() {
             setCartData(cartState.payload)
         }
     },[cartState])
-    
-    
-    
-    
-   const increment = (id) => {
-       let newData = cartData.map((item) => 
-        item.id === id ? {...item , quantity: item.quantity + 1 }: item
-       )
-       setCartData(newData) 
+
+    const increment = (id) => {
+        let newData = cartData.map((item) => 
+         item.id === id ? {...item , quantity: item.quantity + 1 }: item
+        )
+        setCartData(newData) 
+     }
+ 
+    const decrement = (id) => {
+     let newData = cartData.map((item) => 
+         item.id === id ? {...item , quantity: item.quantity > 1 ? item.quantity - 1 : item.quantity }: item
+        )
+        setCartData(newData) 
     }
 
+    useEffect(() => {
+        const getAllItemsPrice = () => {
+            const result = [...cartData].reduce((accu , current) => {
+                return  accu + current.price * current.quantity
+            },0)
+        setTotalItemsPrice(result);    
+        }
+        getAllItemsPrice();
 
-   const decrement = (id) => {
-    let newData = cartData.map((item) => 
-        item.id === id ? {...item , quantity: item.quantity > 1 ? item.quantity - 1 : item.quantity }: item
-       )
-       setCartData(newData) 
-   }
+
+        const getAllDiscountPrice = () => {
+            const result = [...cartData].reduce((accu , current) => {
+                return  accu +  current.quantity * 500
+            },0)
+            setTotalDiscountPrice(result);    
+        }
+        getAllDiscountPrice();
+
+        const getDeliveryCharges = () => {
+            const result = [...cartData].reduce((accu , current) => {
+                return  accu + current.quantity * 100
+            },0)
+            setDeliveryCharges(result);    
+        }
+        getDeliveryCharges();
+
+        const getTotalAmount = () => {
+            setTotalAmount(totalItemPrice - totalDiscountPrice + deliveryCharges)
+        }
+        getTotalAmount();
+    },[cartData , increment , decrement]);
+
     
-
-    
-
     const removeItemFromCartlist = async(product) => {
         const response = await removeFromCartlist(product);
         cartDispatch({type:'REMOVE_FROM_CARTLIST' , payload:response.cartlist.data.cart})
-    }
+      }
     
   return (
     <>
@@ -55,7 +85,7 @@ export default function Cart() {
                   <img className="product-img" src="https://www.trackandtrail.in/sites/default/files/styles/listing_image/public/romer3_0.png?itok=tePICCz7" alt="cycle-img"/>
                   <div className="product-details">
                      <div className="product-desc">DSA Roamer 20T Magic Blue</div>
-                     <div className="product-price">MRP: ₹4,149 <span className='product-rating'>{item.rating}  <i className="lni lni-star-filled"></i></span></div>
+                     <div className="product-price">MRP: ₹{item.price} <span className='product-rating'>{item.rating}  <i className="lni lni-star-filled"></i></span></div>
                       <div className="item-quantity">
                          <button onClick={() => increment(item.id)}> + </button>
                          <div className="quantity">{item.quantity}</div>
@@ -75,21 +105,21 @@ export default function Cart() {
                     <div className="summary-heading">Price Details</div>
                     
                     <div className="summary-items">
-                        <p className="price">Price ({} items) </p>
-                        <div className="value">₹ {}</div>
+                        <p className="price">Price ({cartData.length} items) </p>
+                        <div className="value">₹ {totalItemPrice}</div>
                     </div>
                     <div className="summary-items">
                         <p className="price">Discount</p>
-                        <div className="value">₹ {}</div>
+                        <div className="value">₹ {totalDiscountPrice}</div>
                     </div>
                     <div className="summary-items">
                         <p className="price">Delivery Charges</p>
-                        <div className="value">₹ {}</div>
+                        <div className="value">₹ {deliveryCharges}</div>
                     </div>
                    
                     <div className="total-amount">
                         <p>Total Amount</p>
-                        <div>₹ {}</div>
+                        <div>₹ {totalAmount}</div>
                     </div>
                     <button className="proceed-to-checkout-btn">Proceed To Checkout</button>
                 </div>
