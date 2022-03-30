@@ -77,10 +77,10 @@ useEffect(() => {
     cartDispatch({type: 'CARTLIST' , payload: response});
 },[cartDispatch])
 
-let filteredData = genderFilterData();  
+let filteredData = genderFilterData();
 useEffect(() => {
     setFilterData(filteredData)
-},[rangeInput , oneStar ,twoStar , threeStar , fourStar , hurculesInput , montraInput , machCityInput , roadeoInput , bsaInput , maleInput ,femaleInput ,lowToHighInput , highToLowInput ,cityBikeInput , mountainBikeInput , kidBikeInput , setFilterData])
+},[filteredData ,rangeInput , oneStar ,twoStar , threeStar , fourStar , hurculesInput , montraInput , machCityInput , roadeoInput , bsaInput , maleInput ,femaleInput ,lowToHighInput , highToLowInput ,cityBikeInput , mountainBikeInput , kidBikeInput ,setFilterData])
   return (
     <>
     <div className="cycles-main-container">
