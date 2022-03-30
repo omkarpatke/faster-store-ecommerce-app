@@ -209,11 +209,10 @@ return sortData;
         fetchData();
     },[])
 
-    let filteredData = genderFilterData();
     useEffect(() => {
+        let filteredData = genderFilterData();
         setFilterData(filteredData)
-        console.log(filterData)
-    },[data,setLoading])
+    },[data,loading])
     
     return (<ProductContext.Provider value={{ loading , reducer , dispatch , filterData , setFilterData , genderFilterData}}>{children}</ProductContext.Provider>)
 }

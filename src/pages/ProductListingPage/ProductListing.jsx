@@ -77,9 +77,8 @@ useEffect(() => {
     cartDispatch({type: 'CARTLIST' , payload: response});
 },[cartDispatch])
 
-let filteredData = genderFilterData();  
 useEffect(() => {
-    console.log(filterData)
+    let filteredData = genderFilterData();  
     setFilterData(filteredData)
 },[rangeInput , oneStar ,twoStar , threeStar , fourStar , hurculesInput , montraInput , machCityInput , roadeoInput , bsaInput , maleInput ,femaleInput ,lowToHighInput , highToLowInput ,cityBikeInput , mountainBikeInput , kidBikeInput])
   return (
