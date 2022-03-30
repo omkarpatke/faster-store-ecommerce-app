@@ -200,6 +200,7 @@ return sortData;
                 if(res.status === 200){
                     setData(res.data.products);
                     setLoading(false);
+                    setFilterData(res.data.products)
                 }
              } catch (err) {
                 console.log(err);
@@ -208,11 +209,6 @@ return sortData;
         }
         fetchData();
     },[])
-
-    useEffect(() => {
-        let filteredData = genderFilterData();
-        setFilterData(filteredData)
-    },[data,loading])
     
     return (<ProductContext.Provider value={{ loading , reducer , dispatch , filterData , setFilterData , genderFilterData}}>{children}</ProductContext.Provider>)
 }
