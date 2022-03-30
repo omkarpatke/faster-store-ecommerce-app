@@ -28,9 +28,7 @@ export default function ProductListing() {
 
   const {wishlistDispatch} = useWishlist();
   const {cartDispatch} = useCartlist();
-  const {loading ,dispatch , data , setData} = useProducts();
-
-  
+  const {loading ,dispatch ,filterData , setFilterData , genderFilterData} = useProducts();
 
 const resetBtns = () => {
     dispatch({type:'4STAR' , payload:false})
@@ -53,29 +51,36 @@ const resetBtns = () => {
     setRangeInput(0);
 }
 
+
 const addItemToWishlist = async(product) => {
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
-    let productAddedInWishlist = data.map(item => item._id === product._id ? {...item ,isAddedInWishlist : true} : item)
-    setData(productAddedInWishlist)
- }
+    let productAddedInWishlist = filterData.map(item => item._id === product._id ? {...item ,isAddedInWishlist : true} : item)
+    setFilterData(productAddedInWishlist)
+}
+
 
 const addItemToCartlist = async(product) => {
     const response = await addToCart(product);
     cartDispatch({type: 'ADD_TO_CART' , payload : response});
 }
 
+
 useEffect(() => {
   const response = getWishlist();
   wishlistDispatch({type: 'WISHLIST' , payload: response.wishlist});
 },[wishlistDispatch])
+
 
 useEffect(() => {
     const response = getCartlist();
     cartDispatch({type: 'CARTLIST' , payload: response});
 },[cartDispatch])
 
-  
+let filteredData = genderFilterData();  
+useEffect(() => {
+    setFilterData(filteredData)
+},[rangeInput , oneStar ,twoStar , threeStar , fourStar , hurculesInput , montraInput , machCityInput , roadeoInput , bsaInput , maleInput ,femaleInput ,lowToHighInput , highToLowInput ,cityBikeInput , mountainBikeInput , kidBikeInput])
   return (
     <>
     <div className="cycles-main-container">
@@ -356,7 +361,7 @@ useEffect(() => {
 
        <div className="products-container">
            {loading ? 'Loading...' :
-           data && data.map((product) => (
+           filterData && filterData.map((product) => (
               <div className="product" key={product._id}>
                  <i className={product.isAddedInWishlist ? 'lni lni-heart-filled' : 'lni lni-heart'} id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
                 <img className="product-img" src={product.img} alt="cycle-img"/>

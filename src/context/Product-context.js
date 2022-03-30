@@ -10,6 +10,7 @@ const useProducts = () => useContext(ProductContext);
 const ProductContextProvider = ({children}) => {
     const [loading , setLoading] = useState(true);
     const [data , setData] = useState([]);
+    const [filterData , setFilterData] = useState([]);
 
     const highToLowPrice = (a,b) => {
        return [b.price - a.price];
@@ -56,7 +57,7 @@ return sortData;
       })
   }else{
     ratedData = ratedData.filter(product => {
-          return product
+        return product
       })
   }
 
@@ -125,7 +126,10 @@ return sortData;
       })
   }
   return genderData;
-}
+} 
+
+
+
 
 
     const reducer =(accu, action) => {
@@ -204,7 +208,14 @@ return sortData;
         }
         fetchData();
     },[])
-    return (<ProductContext.Provider value={{ data , loading , reducer , dispatch , genderFilterData , setData}}>{children}</ProductContext.Provider>)
+
+    useEffect(() => {
+        let filteredData = genderFilterData();
+        setFilterData(filteredData)
+        console.log(filterData)
+    },[data,setLoading])
+    
+    return (<ProductContext.Provider value={{ loading , reducer , dispatch , filterData , setFilterData , genderFilterData}}>{children}</ProductContext.Provider>)
 }
 
 export {useProducts , ProductContextProvider};
