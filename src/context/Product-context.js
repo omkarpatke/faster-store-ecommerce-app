@@ -213,7 +213,7 @@ return sortData;
         let filteredData = genderFilterData();
         setFilterData(filteredData)
         console.log(filterData)
-    },[data,setLoading])
+    },[data,setLoading ,filterData , genderFilterData])
     
     return (<ProductContext.Provider value={{ loading , reducer , dispatch , filterData , setFilterData , genderFilterData}}>{children}</ProductContext.Provider>)
 }

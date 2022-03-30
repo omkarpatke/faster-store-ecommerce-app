@@ -80,7 +80,7 @@ useEffect(() => {
 let filteredData = genderFilterData();  
 useEffect(() => {
     setFilterData(filteredData)
-},[rangeInput , oneStar ,twoStar , threeStar , fourStar , hurculesInput , montraInput , machCityInput , roadeoInput , bsaInput , maleInput ,femaleInput ,lowToHighInput , highToLowInput ,cityBikeInput , mountainBikeInput , kidBikeInput])
+},[rangeInput , oneStar ,twoStar , threeStar , fourStar , hurculesInput , montraInput , machCityInput , roadeoInput , bsaInput , maleInput ,femaleInput ,lowToHighInput , highToLowInput ,cityBikeInput , mountainBikeInput , kidBikeInput , filterData , setFilterData])
   return (
     <>
     <div className="cycles-main-container">
