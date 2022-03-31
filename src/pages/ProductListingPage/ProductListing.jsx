@@ -1,4 +1,4 @@
-import { addToCart, addToWishlist, getCartlist, getWishlist } from '../../api-calls/api-calls';
+import { addToCart, addToWishlist, getCartlist, getWishlist ,removeFromWishlist} from '../../api-calls/api-calls';
 import { useProducts } from '../../context/Product-context';
 import { useWishlist } from '../../context/wishlist-context';
 import {useEffect , useState} from 'react'
@@ -59,6 +59,12 @@ const addItemToWishlist = async(product) => {
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
     setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))
 }
+
+ const removeItemFromWishlist = async(product) => {
+    const response = await removeFromWishlist(product);
+    wishlistDispatch({type: 'REMOVE_FROM_WISHLIST' , payload: response.wishlist})
+    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:false} : item)))
+  }
 
 
 const addItemToCartlist = async(product) => {
@@ -362,7 +368,7 @@ useEffect(() => {
            filteredData && filteredData.map((product) => (
               <div className="product" key={product._id}>
                 {product.isAddedInWishlist 
-                 ?<i className='lni lni-heart-filled' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
+                 ?<i className='lni lni-heart-filled' id="product-wishlist-icon" onClick={() => removeItemFromWishlist(product)}></i>
                   :<i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
 }
                 <img className="product-img" src={product.img} alt="cycle-img"/>
