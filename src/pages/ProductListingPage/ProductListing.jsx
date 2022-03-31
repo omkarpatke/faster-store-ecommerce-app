@@ -26,12 +26,14 @@ export default function ProductListing() {
   const [rangeInput , setRangeInput] = useState(8000);
   
 
-  const {wishlistDispatch} = useWishlist();
+  const {wishlistDispatch , wishlistState} = useWishlist();
   const {cartDispatch} = useCartlist();
-  const {loading ,dispatch ,filterData , setFilterData , genderFilterData} = useProducts();
+  const {loading ,dispatch ,filteredData , setData} = useProducts();
+  
+  console.log(wishlistState.payload)
 
 const resetBtns = () => {
-    dispatch({type:'4STAR' , payload:false})
+    dispatch({type:'4STAR' , payload: false })
     setFourstar(false);
     setThreestar(false);
     setTwostar(false);
@@ -55,8 +57,7 @@ const resetBtns = () => {
 const addItemToWishlist = async(product) => {
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
-    let productAddedInWishlist = filterData.map(item => item._id === product._id ? {...item ,isAddedInWishlist : true} : item)
-    setFilterData(productAddedInWishlist)
+    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))
 }
 
 
@@ -77,10 +78,7 @@ useEffect(() => {
     cartDispatch({type: 'CARTLIST' , payload: response});
 },[cartDispatch])
 
-let filteredData = genderFilterData();
-useEffect(() => {
-    setFilterData(filteredData)
-},[rangeInput , oneStar ,twoStar , threeStar , fourStar , hurculesInput , montraInput , machCityInput , roadeoInput , bsaInput , maleInput ,femaleInput ,lowToHighInput , highToLowInput ,cityBikeInput , mountainBikeInput , kidBikeInput ,setFilterData])
+
   return (
     <>
     <div className="cycles-main-container">
@@ -361,9 +359,12 @@ useEffect(() => {
 
        <div className="products-container">
            {loading ? 'Loading...' :
-           filterData && filterData.map((product) => (
+           filteredData && filteredData.map((product) => (
               <div className="product" key={product._id}>
-                 <i className={product.isAddedInWishlist ? 'lni lni-heart-filled' : 'lni lni-heart'} id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
+                {product.isAddedInWishlist 
+                 ?<i className='lni lni-heart-filled' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
+                  :<i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
+}
                 <img className="product-img" src={product.img} alt="cycle-img"/>
                 <div className="product-desc">{product.desc}</div>
                 <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>
@@ -376,4 +377,5 @@ useEffect(() => {
        </div>
     </div>
     </>
+    // <i className={product.isAddedInWishlist ? 'lni lni-heart-filled' : 'lni lni-heart'} id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
   )}
