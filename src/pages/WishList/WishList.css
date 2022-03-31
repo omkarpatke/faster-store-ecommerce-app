@@ -3,7 +3,7 @@
     min-height: 90vh;
     max-height: auto;
     background-color: var(--gray-bg-color);
-    padding: 2rem 3rem;
+    padding: 2rem;
 }
 
 .wishlist-container{

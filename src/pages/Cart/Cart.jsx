@@ -1,7 +1,10 @@
 import React , {useState , useEffect} from 'react';
-import { removeFromCartlist } from '../../api-calls/api-calls';
+import { addToWishlist, removeFromCartlist, removeFromWishlist } from '../../api-calls/api-calls';
 import { useCartlist } from '../../context/cart-context';
+import { useProducts } from '../../context/Product-context';
+import { useWishlist } from '../../context/wishlist-context';
 import './Cart.css';
+
 
 export default function Cart() {
     let {cartState , cartDispatch} = useCartlist();
@@ -10,6 +13,8 @@ export default function Cart() {
     let [totalDiscountPrice , setTotalDiscountPrice] = useState(0);
     let [deliveryCharges , setDeliveryCharges] = useState(0);
     let [totalAmount , setTotalAmount] = useState(0);
+    let {setData} = useProducts();
+    const {wishlistDispatch} = useWishlist();
 
     
     useEffect(() => {
@@ -19,6 +24,7 @@ export default function Cart() {
             setCartData(cartState.payload)
         }
     },[cartState])
+
 
     const increment = (id) => {
         let newData = cartData.map((item) => 
@@ -71,17 +77,24 @@ export default function Cart() {
         const response = await removeFromCartlist(product);
         cartDispatch({type:'REMOVE_FROM_CARTLIST' , payload:response.cartlist.data.cart})
       }
+
+      const addItemToWishlist = async(product) => {
+        const response = await addToWishlist(product);
+        wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
+        setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))
+        removeItemFromCartlist(product)
+    }
     
   return (
     <>
     <div className="main-container">
         <div className="cart-container">
             <div className="selected-items-container">
-            <h2 className='cart-container-heading'>Shopping Cart</h2>
+            <h2 className='cart-container-heading'>Shopping Cart ({cartData.length})</h2>
               <div className="products">
               {cartData && cartData.map((item , index) => (
                   <div className="product" key={index}>
-                  <i className="wishlist-icon lni lni-heart"></i>
+                  <i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(item)}></i>
                   <img className="product-img" src="https://www.trackandtrail.in/sites/default/files/styles/listing_image/public/romer3_0.png?itok=tePICCz7" alt="cycle-img"/>
                   <div className="product-details">
                      <div className="product-desc">DSA Roamer 20T Magic Blue</div>
