@@ -1,12 +1,13 @@
+import { addToCart, addToWishlist, getCartlist, getWishlist ,removeFromWishlist} from '../../api-calls/api-calls';
 import { useProducts } from '../../context/Product-context';
+import { useWishlist } from '../../context/wishlist-context';
+import {useEffect , useState} from 'react'
 import './ProductListing.css';
-import {useState} from 'react';
-
+import { useCartlist } from '../../context/cart-context';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function ProductListing() {
-
-
   const [fourStar , setFourstar] = useState();
   const [threeStar , setThreestar] = useState();
   const [twoStar , setTwostar] = useState();
@@ -26,16 +27,14 @@ export default function ProductListing() {
   const [rangeInput , setRangeInput] = useState(8000);
   
 
-
-
-
-
-
-  const {loading ,dispatch , genderFilterData} = useProducts();
-
+  const {wishlistDispatch} = useWishlist();
+  const {cartDispatch} = useCartlist();
+  const {loading ,dispatch ,filteredData , setData} = useProducts();
+  
+  const navigate = useNavigate();
 
 const resetBtns = () => {
-    dispatch({type:'4STAR' , payload:false})
+    dispatch({type:'4STAR' , payload: false })
     setFourstar(false);
     setThreestar(false);
     setTwostar(false);
@@ -56,8 +55,38 @@ const resetBtns = () => {
 }
 
 
-  let filteredData = genderFilterData();
-    
+const addItemToWishlist = async(product) => {
+    const response = await addToWishlist(product);
+    wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
+    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))
+}
+
+ const removeItemFromWishlist = async(product) => {
+    const response = await removeFromWishlist(product);
+    wishlistDispatch({type: 'REMOVE_FROM_WISHLIST' , payload: response.wishlist})
+    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:false} : item)))
+  }
+
+
+const addItemToCartlist = async(product) => {
+    const response = await addToCart(product);
+    cartDispatch({type: 'ADD_TO_CART' , payload : response});
+    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
+}
+
+
+useEffect(() => {
+  const response = getWishlist();
+  wishlistDispatch({type: 'WISHLIST' , payload: response.wishlist});
+},[wishlistDispatch])
+
+
+useEffect(() => {
+    const response = getCartlist();
+    cartDispatch({type: 'CARTLIST' , payload: response});
+},[cartDispatch])
+
+
   return (
     <>
     <div className="cycles-main-container">
@@ -338,22 +367,26 @@ const resetBtns = () => {
 
        <div className="products-container">
            {loading ? 'Loading...' :
-           filteredData.map(({img , desc ,price ,id, rating}) => (
-              <div className="product" key={id}>
-                <a href="#wishlist">
-                 <i className="product-wishlist-icon lni lni-heart"></i>
-                </a>
-                <img className="product-img" src={img} alt="cycle-img"/>
-                <div className="product-desc">{desc}</div>
-                <div className="product-price">MRP: ₹{price} <span className='product-rating'>{rating}  <i className="lni lni-star-filled"></i></span></div>
+           filteredData && filteredData.map((product) => (
+              <div className="product" key={product._id}>
+                {product.isAddedInWishlist 
+                 ?<i className='lni lni-heart-filled' id="product-wishlist-icon" onClick={() => removeItemFromWishlist(product)}></i>
+                  :<i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
+                }
+                <img className="product-img" src={product.img} alt="cycle-img"/>
+                <div className="product-desc">{product.desc}</div>
+                <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>
                 <div className="product-links">
                     <button className="product-btn">KNOW MORE</button>
-                    <button className="product-btn">Add To Cart</button>
+                    {product.isItemAddedInCart
+                    ? <button className="product-btn" onClick={() => navigate('/cart')}>Go To Cart</button>
+                    : <button className="product-btn" onClick={() => addItemToCartlist(product)}>Add To Cart</button>
+                    }
                 </div>
               </div>
             ))} 
        </div>
     </div>
     </>
-  )
-}
+    // <i className={product.isAddedInWishlist ? 'lni lni-heart-filled' : 'lni lni-heart'} id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
+  )}

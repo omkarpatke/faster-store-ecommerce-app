@@ -23,6 +23,14 @@
     background-color: var(--white-color);
     padding: 2rem 3rem;
     margin: 0 2rem 2rem 2rem;
+    min-height: 35rem;
+    min-width: 67rem;
+    max-height: auto;
+}
+
+.cart-container-heading{
+    border-bottom: 2px solid #DDD;
+    margin-bottom: 2rem;
 }
 
 .products{
@@ -38,13 +46,14 @@
     background-color: var(--white-color);
     padding: 1rem;
     max-width: 20rem;
-    height: auto;
+    min-height: 29rem;
     border: 1px solid;
 }
 
 .item-quantity{
     display: flex;
     gap: 0 10px;
+    margin-top: -1rem;
 }
 
 .item-quantity button{
@@ -53,6 +62,7 @@
 
 .wishlist-icon{
     font-size: 1.5rem;
+    cursor: pointer;
 }
 
 .product-price:hover{

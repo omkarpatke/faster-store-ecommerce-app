@@ -3,8 +3,29 @@ import './Navbar.css';
 import NavLogo from '../../Images/cycle-favicon.png';
 import ProfileImg from '../../Images/pngwing.com.png';
 import {  Link } from "react-router-dom";
+import { useWishlist } from '../../context/wishlist-context';
+import { useCartlist } from '../../context/cart-context';
 
 export default function Navbar() {
+
+    let wishlistState = useWishlist();
+    let wishlistLength
+    if(wishlistState.wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.wishlistState.type === 'REMOVE_FROM_WISHLIST'){
+      wishlistLength = wishlistState.wishlistState.payload.length
+    }else if(wishlistState.wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.wishlistState.payload === 'none'){
+        wishlistLength = 0;
+    }
+
+    let cartState = useCartlist();
+    let cartlistLength;
+    if(cartState.cartState.type === 'ADD_TO_CART'){
+        cartlistLength = cartState.cartState.payload.cartlist.length
+    }else if(cartState.cartState.type === 'REMOVE_FROM_CARTLIST'){
+        cartlistLength = cartState.cartState.payload.length
+    }else if(cartState.cartState.type === 'ADD_TO_CART' || cartState.cartState.payload === 'none'){
+        cartlistLength = 0;
+    }
+
   return (
     <>
     <div className="sub-header">
@@ -25,12 +46,12 @@ export default function Navbar() {
 
         <div className="wishlist">
             <Link to='/wishlist' className="nav-wishlist-icon" title="WishList"><i className="lni lni-heart"></i></Link>
-            <span className="wishlist-items-number">4</span>
+            <span className="wishlist-items-number">{wishlistLength}</span>
         </div>
 
         <div className="cart">
             <Link to='/cart' className="cart-icon" title="Cart"><i className="lni lni-cart-full"></i></Link>
-            <span className="cart-items-number">3</span>
+            <span className="cart-items-number">{cartlistLength}</span>
         </div>
 
         <div className="user-profile">
