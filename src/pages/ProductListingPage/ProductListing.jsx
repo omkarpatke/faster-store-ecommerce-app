@@ -4,6 +4,7 @@ import { useWishlist } from '../../context/wishlist-context';
 import {useEffect , useState} from 'react'
 import './ProductListing.css';
 import { useCartlist } from '../../context/cart-context';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function ProductListing() {
@@ -26,11 +27,11 @@ export default function ProductListing() {
   const [rangeInput , setRangeInput] = useState(8000);
   
 
-  const {wishlistDispatch , wishlistState} = useWishlist();
+  const {wishlistDispatch} = useWishlist();
   const {cartDispatch} = useCartlist();
   const {loading ,dispatch ,filteredData , setData} = useProducts();
   
-  console.log(wishlistState.payload)
+  const navigate = useNavigate();
 
 const resetBtns = () => {
     dispatch({type:'4STAR' , payload: false })
@@ -70,6 +71,7 @@ const addItemToWishlist = async(product) => {
 const addItemToCartlist = async(product) => {
     const response = await addToCart(product);
     cartDispatch({type: 'ADD_TO_CART' , payload : response});
+    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
 }
 
 
@@ -376,7 +378,10 @@ useEffect(() => {
                 <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>
                 <div className="product-links">
                     <button className="product-btn">KNOW MORE</button>
-                    <button className="product-btn" onClick={() => addItemToCartlist(product)}>Add To Cart</button>
+                    {product.isItemAddedInCart
+                    ? <button className="product-btn" onClick={() => navigate('/cart')}>Go To Cart</button>
+                    : <button className="product-btn" onClick={() => addItemToCartlist(product)}>Add To Cart</button>
+                    }
                 </div>
               </div>
             ))} 

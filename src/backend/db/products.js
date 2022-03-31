@@ -17,6 +17,7 @@ export const products = [
   //   gender:'male',
   //   quantity: 1,
   //   isAddedInWishlist: false,
+  //   isItemAddedInCart: false,
   // },
   // {
   //   _id: uuid(),
@@ -29,6 +30,7 @@ export const products = [
   //   gender:'male',
   //   quantity: 1,
   //   isAddedInWishlist: false,
+  //   isItemAddedInCart: false,
   // },
   // {
   //   _id: uuid(),
@@ -41,6 +43,7 @@ export const products = [
   //   gender:'male',
   //   quantity: 1,
   //   isAddedInWishlist: false,
+  //   isItemAddedInCart: false,
   // },
   {
     _id: uuid(),
@@ -53,6 +56,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -64,7 +68,8 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
-    isAddedInWishlist: false, 
+    isAddedInWishlist: false,
+    isItemAddedInCart: false, 
   },
   {
     _id: uuid(),
@@ -77,6 +82,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -89,6 +95,7 @@ export const products = [
     gender:'female',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -101,6 +108,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -113,6 +121,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -124,7 +133,8 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
-    isAddedInWishlist: false, 
+    isAddedInWishlist: false,
+    isItemAddedInCart: false, 
   },
   {
     _id: uuid(),
@@ -136,7 +146,8 @@ export const products = [
     type: 'city',
     gender:'male',
     quantity: 1,
-    isAddedInWishlist: false, 
+    isAddedInWishlist: false,
+    isItemAddedInCart: false, 
   },
   {
     _id: uuid(),
@@ -149,6 +160,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -161,6 +173,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -173,6 +186,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -184,7 +198,8 @@ export const products = [
     type: 'mountain',
     gender:'male',
     quantity: 1,
-    isAddedInWishlist: false, 
+    isAddedInWishlist: false,
+    isItemAddedInCart: false, 
   },
   {
     _id: uuid(),
@@ -197,6 +212,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -209,6 +225,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -221,6 +238,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -233,6 +251,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -245,6 +264,7 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
   {
     _id: uuid(),
@@ -257,5 +277,6 @@ export const products = [
     gender:'male',
     quantity: 1,
     isAddedInWishlist: false,
+    isItemAddedInCart: false,
   },
 ];
