@@ -215,6 +215,57 @@ useEffect(() => {
                </div>
            </div>
 
+           <div className="filter bike-type-filter">
+            <h3>Category</h3>
+            <div className="radio-input">
+                <input 
+                id='CITY_BIKES'
+                type="radio" 
+                name="bike-type"
+                checked={cityBikeInput}
+                onClick={() => {
+                    dispatch({type: 'CITY_BIKES' ,payload : 'CITY_BIKES'})
+                    setCityBikeInput(true);
+                    setMountainBikeInput(false);
+                    setKidBikeInput(false);
+                }}
+                />
+                <label htmlFor="CITY_BIKES">City Bikes</label>
+            </div>
+
+            <div className="radio-input">
+                <input
+                id='KIDS_BIKES' 
+                type="radio" 
+                name="bike-type"
+                checked={kidBikeInput}
+                onClick={() => {
+                    dispatch({type: 'KIDS_BIKES',payload : 'KIDS_BIKES'})
+                    setCityBikeInput(false);
+                    setMountainBikeInput(false);
+                    setKidBikeInput(true);
+                }}
+                />
+                <label htmlFor="KIDS_BIKES">Kids Bikes</label>
+            </div>
+
+            <div className="radio-input">
+                <input 
+                id='MOUNTAIN_BIKES'
+                type="radio" 
+                name="bike-type"
+                checked={mountainBikeInput}
+                onClick={() => {
+                    dispatch({type:'MOUNTAIN_BIKES',payload : 'MOUNTAIN_BIKES'})
+                    setCityBikeInput(false);
+                    setMountainBikeInput(true);
+                    setKidBikeInput(false);
+                }}
+                />
+                <label htmlFor="MOUNTAIN_BIKES">Mountian Bikes</label>
+            </div>
+           </div>
+
            <div className="filter brands-filter-input">
             <h3>Brands</h3>
             <div className="check-box-input">
@@ -300,58 +351,6 @@ useEffect(() => {
             }}
                 />
                 <label htmlFor="BSA LADYBIRD">BSA Ladybird</label>
-            </div>
-           </div>
-          
-
-           <div className="filter bike-type-filter">
-            <h3>Bike Type</h3>
-            <div className="radio-input">
-                <input 
-                id='CITY_BIKES'
-                type="radio" 
-                name="bike-type"
-                checked={cityBikeInput}
-                onClick={() => {
-                    dispatch({type: 'CITY_BIKES' ,payload : 'CITY_BIKES'})
-                    setCityBikeInput(true);
-                    setMountainBikeInput(false);
-                    setKidBikeInput(false);
-                }}
-                />
-                <label htmlFor="CITY_BIKES">City Bikes</label>
-            </div>
-
-            <div className="radio-input">
-                <input
-                id='KIDS_BIKES' 
-                type="radio" 
-                name="bike-type"
-                checked={kidBikeInput}
-                onClick={() => {
-                    dispatch({type: 'KIDS_BIKES',payload : 'KIDS_BIKES'})
-                    setCityBikeInput(false);
-                    setMountainBikeInput(false);
-                    setKidBikeInput(true);
-                }}
-                />
-                <label htmlFor="KIDS_BIKES">Kids Bikes</label>
-            </div>
-
-            <div className="radio-input">
-                <input 
-                id='MOUNTAIN_BIKES'
-                type="radio" 
-                name="bike-type"
-                checked={mountainBikeInput}
-                onClick={() => {
-                    dispatch({type:'MOUNTAIN_BIKES',payload : 'MOUNTAIN_BIKES'})
-                    setCityBikeInput(false);
-                    setMountainBikeInput(true);
-                    setKidBikeInput(false);
-                }}
-                />
-                <label htmlFor="MOUNTAIN_BIKES">Mountian Bikes</label>
             </div>
            </div>
           
