@@ -220,11 +220,16 @@ useEffect(() => {
             <div className="check-box-input">
                 <input 
                 id='HERCULES'
-                type="checkbox"
+                type="radio"
                 checked={hurculesInput}
                 onChange={(e) => {
                     dispatch({type:'HERCULES' , payload:e.target.checked})
                     setHurculesInput(prev => !prev);
+                    setMachCityInput(false)
+                    setBsaInput(false)
+                    setHurculesInput(true)
+                    setMontraInput(false)
+                    setRoadeoInput(false)
                 }}
                 />
                 <label htmlFor="HERCULES">Hercules</label>
@@ -232,11 +237,16 @@ useEffect(() => {
             <div className="check-box-input">
                 <input 
                 id='MACH CITY'
-                type="checkbox"
+                type="radio"
                 checked={machCityInput}
                 onChange={(e) => {
                     dispatch({type:'MACH CITY' , payload:e.target.checked})
                     setMachCityInput(prev => !prev);
+                    setMachCityInput(true)
+                    setBsaInput(false)
+                    setHurculesInput(false)
+                    setMontraInput(false)
+                    setRoadeoInput(false)
                 }}
                 />
                 <label htmlFor="MACH CITY">Mach City</label>
@@ -244,11 +254,16 @@ useEffect(() => {
             <div className="check-box-input">
                 <input
                 id='MONTRA' 
-                type="checkbox"
+                type="radio"
                 checked={montraInput}
                 onChange={(e) => {
                     dispatch({type:'MONTRA' , payload:e.target.checked})
                     setMontraInput(prev => !prev);
+                    setMachCityInput(false)
+                    setBsaInput(false)
+                    setHurculesInput(false)
+                    setMontraInput(true)
+                    setRoadeoInput(false)
                 }}
                 />
                 <label htmlFor="MONTRA">Montra</label>
@@ -256,11 +271,16 @@ useEffect(() => {
             <div className="check-box-input">
                 <input 
                 id='ROADEO'
-                type="checkbox"
+                type="radio"
                 checked={roadeoInput}
                 onChange={(e) => {
                     dispatch({type:'ROADEO' , payload:e.target.checked})
                     setRoadeoInput(prev => !prev)
+                    setMachCityInput(false)
+                    setBsaInput(false)
+                    setHurculesInput(false)
+                    setMontraInput(false)
+                    setRoadeoInput(true)
                 }}
                 />
                 <label htmlFor="ROADEO">Roadeo</label>
@@ -268,10 +288,15 @@ useEffect(() => {
             <div className="check-box-input">
                 <input 
                 id='BSA LADYBIRD'
-                type="checkbox"
+                type="radio"
                 checked={bsaInput}
                 onChange={(e) => {dispatch({type:'BSA LADYBIRD' , payload:e.target.checked})
                 setBsaInput(prev => !prev);
+                setMachCityInput(false)
+                setBsaInput(true)
+                setHurculesInput(false)
+                setMontraInput(false)
+                setRoadeoInput(false)
             }}
                 />
                 <label htmlFor="BSA LADYBIRD">BSA Ladybird</label>
@@ -333,10 +358,10 @@ useEffect(() => {
 
            <div className="filter gender-filter">
             <h3>Gender</h3>
-            <div className="gender-checkbox-input">
+            <div className="gender-radio-input">
                 <input
                 id='MALE' 
-                type="checkbox" 
+                type="radio" 
                 name="gender"
                 checked={maleInput}
                 onChange={(e) => {
@@ -347,10 +372,10 @@ useEffect(() => {
                 <label htmlFor="MALE">Male</label>
             </div>
 
-            <div className="gender-checkbox-input">
+            <div className="gender-radio-input">
                 <input 
                 id='FEMALE'
-                type="checkbox" 
+                type="radio" 
                 name="gender"
                 checked={femaleInput}
                 onChange={(e) => {
