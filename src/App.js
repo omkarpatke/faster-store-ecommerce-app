@@ -10,6 +10,10 @@ import Footer from './components/Footer/Footer';
 import { Routes, Route } from "react-router-dom";
 import Mockman from 'mockman-js';
 import { RequiresAuth } from "./components/RequiresAuth";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 function App() {
   
@@ -25,6 +29,11 @@ function App() {
         <Route path='/cart' exact element={<RequiresAuth><Cart /></RequiresAuth>} />
         <Route path='/mock' exact element={<Mockman />} />
       </Routes>
+      <ToastContainer 
+      position="top-right"
+      autoClose='1200'
+      theme="colored"
+      />
       <Footer />
     </div>
   );

@@ -6,10 +6,11 @@ import {  Link , useNavigate } from "react-router-dom";
 import { useWishlist } from '../../context/wishlist-context';
 import { useCartlist } from '../../context/cart-context';
 import { useUserAuth } from '../../context/userAuth-context';
+import { useToastContext } from '../../context/toastContext';
 
 export default function Navbar() {
     const { isLogIn , setIsLogIn } = useUserAuth();
-    
+    const notify = useToastContext();
     const navigate = useNavigate();
     let wishlistState = useWishlist();
     let wishlistLength
@@ -30,6 +31,7 @@ export default function Navbar() {
     }
 
     const logoutHandler = () => {
+        notify('You Are Successfully Logout!' , {type:'info'});
         setIsLogIn(false);
         localStorage.clear();
         navigate('/');
