@@ -24,7 +24,7 @@ export default function SignIn() {
       if(response.status === 200){
         localStorage.setItem("token", response.data.encodedToken);
         setIsLogIn(true);
-        notify('You Are Successfully LogIn!' , {type:'info'});
+        notify('You Are Successfully LogIn!' , {type:'success'});
         navigate(from , {replace:true});
       } 
     } catch (err) {

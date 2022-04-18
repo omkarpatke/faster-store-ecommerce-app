@@ -28,7 +28,7 @@ export default function SignUp() {
       // saving the encodedToken in the localStorage
       if(response.status === 201){
       localStorage.setItem("token", response.data.encodedToken);
-      notify('You Are Successfully Signup!' , {type:'info'});
+      notify('You Are Successfully Signup!' , {type:'success'});
       setIsLogIn(true);
       navigate(from , { replace:true });
       }

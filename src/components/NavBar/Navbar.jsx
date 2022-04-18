@@ -31,7 +31,7 @@ export default function Navbar() {
     }
 
     const logoutHandler = () => {
-        notify('You Are Successfully Logout!' , {type:'info'});
+        notify('You Are Successfully Logout!' , {type:'success'});
         setIsLogIn(false);
         localStorage.clear();
         navigate('/');
