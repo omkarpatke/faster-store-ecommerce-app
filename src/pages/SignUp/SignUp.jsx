@@ -16,21 +16,25 @@ export default function SignUp() {
 
   const signupHandler = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(`/api/auth/signup`, ({
-        firstName: name,
-        lastName: lastName,
-        email: email,
-        password: password,
-      }));
-      // saving the encodedToken in the localStorage
-      if(response.status === 201){
-      localStorage.setItem("token", response.data.encodedToken);
-      setIsLogIn(true);
-      navigate(from , { replace:true });
+    if(name && lastName && email && password){
+      try {
+        const response = await axios.post(`/api/auth/signup`, ({
+          firstName: name,
+          lastName: lastName,
+          email: email,
+          password: password,
+        }));
+        // saving the encodedToken in the localStorage
+        if(response.status === 201){
+        localStorage.setItem("token", response.data.encodedToken);
+        setIsLogIn(true);
+        navigate(from , { replace:true });
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
+    }else{
+      alert('Enter Empty Fields');
     }
   };
   return (
@@ -41,16 +45,16 @@ export default function SignUp() {
             <h2>Sign Up</h2>
             <form className="logIn-form">
                 <label htmlFor="first-name" aria-required="true">First Name<span>*</span></label>
-                <input type="text" name="first-name" id="first-name" value={name} onChange={ e => setName(e.target.value)}/>
+                <input type="text" name="first-name" required id="first-name" value={name} onChange={ e => setName(e.target.value)}/>
 
                 <label htmlFor="last-name" aria-required="true"> Last Name<span>*</span></label>
-                <input type="text" name="last-name" id="last-name" value={lastName} onChange={ e => setLastName(e.target.value)}/>
+                <input type="text" name="last-name" required id="last-name" value={lastName} onChange={ e => setLastName(e.target.value)}/>
 
                 <label htmlFor='login-eamil-input' aria-required="true">E-mail address<span>*</span></label>
-                <input type="email" name="user-email" id="login-eamil-input" value={email} onChange={ e => setEmail(e.target.value)}/>
+                <input type="email" name="user-email" required id="login-eamil-input" value={email} onChange={ e => setEmail(e.target.value)}/>
 
                 <label htmlFor="login-password" aria-required="true">Password<span>*</span></label>
-                <input type="password" name="login-password" id="login-password" value={password} onChange={ e => setPassword(e.target.value)}/>
+                <input type="password" name="login-password" required id="login-password" value={password} onChange={ e => setPassword(e.target.value)}/>
 
                 <button className="login-btn" type="submit" onClick={(e) => signupHandler(e)}> Sign Up </button>
             </form>

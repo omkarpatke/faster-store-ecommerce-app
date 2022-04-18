@@ -17,18 +17,22 @@ export default function SignIn() {
 
    const loginHandler = async(e) => {
      e.preventDefault();
-    try {
-      const response = await axios.post(`/api/auth/login`, {
-        email , password
-      });
-      if(response.status === 200){
-        localStorage.setItem("token", response.data.encodedToken);
-        setIsLogIn(true);
-        navigate(from , {replace:true});
-      } 
-    } catch (err) {
-        setError("The email you entered is not Registered. Please SignUp!");
-    }
+     if(email && password){
+      try {
+        const response = await axios.post(`/api/auth/login`, {
+          email , password
+        });
+        if(response.status === 200){
+          localStorage.setItem("token", response.data.encodedToken);
+          setIsLogIn(true);
+          navigate(from , {replace:true});
+        } 
+      } catch (err) {
+          setError("The email you entered is not Registered. Please SignUp!");
+      }
+     }else{
+      alert('Enter Empty Fields');
+     }
   }
 
   const guestLoginHandler = () => {
