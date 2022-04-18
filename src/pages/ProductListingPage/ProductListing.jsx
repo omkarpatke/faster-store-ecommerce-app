@@ -413,7 +413,7 @@ useEffect(() => {
                  ?<i className='lni lni-heart-filled' id="product-wishlist-icon" onClick={() => removeItemFromWishlist(product)}></i>
                   :<i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
                 }
-                <img className="product-img" src={product.img} alt="cycle-img"/>
+                <Link to={`/products/${product._id}`}><img className="product-img" src={product.img} alt="cycle-img"/></Link>
                 <div className="product-desc">{product.desc}</div>
                 <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>
                 <div className="product-links">

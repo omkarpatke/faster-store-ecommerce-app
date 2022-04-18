@@ -13,9 +13,9 @@ export default function ProductDetail() {
   const { cartDispatch } = useCartlist();
   const { wishlistDispatch } = useWishlist();
   const notify = useToastContext();
-  const data = filteredData.filter(item => item._id === productId)[0];
+  const currentProduct = filteredData.filter(item => item._id === productId)[0];
   const navigate = useNavigate();
-
+  const { img, price, desc, rating, isAddedInWishlist, isItemAddedInCart } = currentProduct;
   const addItemToCartlist = async(product) => {
         const response = await addToCart(product);
         notify('Item Added In Cart' , {type:'info'});
@@ -43,19 +43,19 @@ export default function ProductDetail() {
     <>
     <div className='product-detail-container'>
       <div className="img-setion">
-      <img className='single-product-img' src={data.img} alt="cycle-img" />
+      <img className='single-product-img' src={img} alt="cycle-img" />
       </div>
       <div className="product-info-section">
-        <h1>{data.desc}</h1>
-        <div className="product-price">MRP: ₹{data.price} <span className='product-rating'>{data.rating}  <i className="lni lni-star-filled"></i></span></div>
+        <h1>{desc}</h1>
+        <div className="product-price">MRP: ₹{price} <span className='product-rating'>{rating}  <i className="lni lni-star-filled"></i></span></div>
         <div className="product-detail-btns">
-        {data.isItemAddedInCart
+        {isItemAddedInCart
            ? <button className="product-btn" onClick={() => navigate('/cart')}>Go To Cart</button>
-           : <button className="product-btn" onClick={() => addItemToCartlist(data)}>Add To Cart</button>
+           : <button className="product-btn" onClick={() => addItemToCartlist(currentProduct)}>Add To Cart</button>
         }
-        {data.isAddedInWishlist
-           ? <button className="product-btn" onClick={() => removeItemFromWishlist(data)}> Remove From Wishlist </button>
-           : <button className='product-btn' onClick={() => addItemToWishlist(data)}> Add to Wishlist </button>
+        {isAddedInWishlist
+           ? <button className="product-btn" onClick={() => removeItemFromWishlist(currentProduct)}> Remove From Wishlist </button>
+           : <button className='product-btn' onClick={() => addItemToWishlist(currentProduct)}> Add to Wishlist </button>
         }
         
         </div>
