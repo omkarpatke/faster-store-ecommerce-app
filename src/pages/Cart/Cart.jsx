@@ -3,6 +3,7 @@ import { addToWishlist, removeFromCartlist } from '../../api-calls/api-calls';
 import { useCartlist } from '../../context/cart-context';
 import { useProducts } from '../../context/Product-context';
 import { useWishlist } from '../../context/wishlist-context';
+import { Link } from 'react-router-dom';
 import './Cart.css';
 
 
@@ -95,9 +96,9 @@ export default function Cart() {
               {cartData && cartData.map((item , index) => (
                   <div className="product" key={index}>
                   <i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(item)}></i>
-                  <img className="product-img" src="https://www.trackandtrail.in/sites/default/files/styles/listing_image/public/romer3_0.png?itok=tePICCz7" alt="cycle-img"/>
+                  <img className="product-img" src={item.img} alt="cycle-img"/>
                   <div className="product-details">
-                     <div className="product-desc">DSA Roamer 20T Magic Blue</div>
+                     <div className="product-desc">{item.desc}</div>
                      <div className="product-price">MRP: ₹{item.price} <span className='product-rating'>{item.rating}  <i className="lni lni-star-filled"></i></span></div>
                       <div className="item-quantity">
                          <button onClick={() => increment(item.id)}> + </button>
@@ -106,7 +107,7 @@ export default function Cart() {
                       </div>
                   </div>
                   <div className="product-links">
-                     <button className="product-btn">Know More</button>
+                     <Link className="product-btn" to={`/products/${item._id}`}>KNOW MORE</Link>
                      <button className="product-btn" onClick={() => removeItemFromCartlist(item)}>Remove Item</button>
                   </div>
               </div> 

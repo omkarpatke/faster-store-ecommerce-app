@@ -4,7 +4,7 @@ import { useWishlist } from '../../context/wishlist-context';
 import {useEffect , useState} from 'react'
 import './ProductListing.css';
 import { useCartlist } from '../../context/cart-context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 import { useUserAuth } from '../../context/userAuth-context';
 import { useToastContext } from '../../context/toastContext';
 
@@ -417,7 +417,7 @@ useEffect(() => {
                 <div className="product-desc">{product.desc}</div>
                 <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>
                 <div className="product-links">
-                    <button className="product-btn">KNOW MORE</button>
+                    <Link className="product-btn" to={`/products/${product._id}`}>KNOW MORE</Link>
                     {product.isItemAddedInCart
                     ? <button className="product-btn" onClick={() => navigate('/cart')}>Go To Cart</button>
                     : <button className="product-btn" onClick={() => addItemToCartlist(product)}>Add To Cart</button>

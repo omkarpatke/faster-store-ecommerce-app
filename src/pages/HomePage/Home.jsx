@@ -2,8 +2,12 @@ import React from 'react';
 import './Home.css';
 import {  Link } from "react-router-dom";
 import homeImg from '../../Images/homeImg.jpg';
+import { useUserAuth } from '../../context/userAuth-context';
+import { useToastContext } from '../../context/toastContext';
 
 export default function Home() {
+    const { isLogIn } = useUserAuth();
+    const notify = useToastContext();
   return (
     <>
     <div className="main-section">
@@ -40,7 +44,10 @@ export default function Home() {
                     <img src="https://www.trackandtrail.in/sites/default/files/styles/brand_logo/public/Machcity%20New%20Logo.png?itok=85MxtsOZ" alt="Mach City"/>
                     <h4 className="cycle-desc">Mach City iBike Single Speed Medium Matt Black</h4>
                     <h4 className="cycle-price">MRP: 9,170</h4>
-                    <Link to='/products' className="btn link-btn">Details</Link>
+                    {isLogIn 
+                       ? <Link to='/products/3038e69d-3ca8-4ec6-bfba-5d798140ab5d' className="btn link-btn"> Details </Link>
+                       : <button className="btn link-btn" onClick={() => notify('Please Login!' , {type:'info'})}> Details </button>
+                    }
                 </div>
             </div>
         </div>

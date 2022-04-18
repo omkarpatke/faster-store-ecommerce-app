@@ -3,6 +3,7 @@ import { addToCart, removeFromWishlist } from '../../api-calls/api-calls';
 import { useCartlist } from '../../context/cart-context';
 import { useProducts } from '../../context/Product-context';
 import { useWishlist } from '../../context/wishlist-context';
+import { Link } from 'react-router-dom';
 import './WishList.css';
 
 export default function WishList() {
@@ -47,7 +48,7 @@ export default function WishList() {
                     <div className="product-desc">{product.desc}</div>
                     <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>
                     <div className="product-links">
-                        <button className="product-btn">KNOW MORE</button>
+                        <Link className="product-btn" to={`/products/${product._id}`}>KNOW MORE</Link>
                         <button className="product-btn" onClick={() => addItemToCartlist(product)}>Add To Cart</button>
                     </div>
                     </div>
