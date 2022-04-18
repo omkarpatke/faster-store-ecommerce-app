@@ -33,6 +33,15 @@
     color: var(--white-color);
 }
 
+.logout-btn{
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+.vertical-divider{
+    color: var(--white-color);
+}
+
 /* navbar */
 
 .navbar{

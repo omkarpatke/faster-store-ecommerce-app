@@ -2,12 +2,15 @@ import React from 'react';
 import './Navbar.css';
 import NavLogo from '../../Images/cycle-favicon.png';
 import ProfileImg from '../../Images/pngwing.com.png';
-import {  Link } from "react-router-dom";
+import {  Link , useNavigate } from "react-router-dom";
 import { useWishlist } from '../../context/wishlist-context';
 import { useCartlist } from '../../context/cart-context';
+import { useUserAuth } from '../../context/userAuth-context';
 
 export default function Navbar() {
-
+    const { isLogIn , setIsLogIn } = useUserAuth();
+    
+    const navigate = useNavigate();
     let wishlistState = useWishlist();
     let wishlistLength
     if(wishlistState.wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.wishlistState.type === 'REMOVE_FROM_WISHLIST'){
@@ -26,12 +29,20 @@ export default function Navbar() {
         cartlistLength = 0;
     }
 
+    const logoutHandler = () => {
+        setIsLogIn(false);
+        localStorage.clear();
+        navigate('/');
+     }
+
+
   return (
     <>
     <div className="sub-header">
         <div className="login-links">
-            <Link to='/sign-in'> SignIn </Link> |
-            <Link to='/sign-up'> SignUp </Link> 
+            {!isLogIn ? 
+            <div><Link to='/sign-in'> SignIn </Link> <span className='vertical-divider'>|</span>
+            <Link to='/sign-up'> SignUp </Link></div> : <div onClick={logoutHandler} className='logout-btn'> Logout </div>} 
         </div>
     </div>
     <nav className="navbar">

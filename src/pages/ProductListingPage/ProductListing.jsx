@@ -5,7 +5,7 @@ import {useEffect , useState} from 'react'
 import './ProductListing.css';
 import { useCartlist } from '../../context/cart-context';
 import { useNavigate } from 'react-router-dom';
-
+import { useUserAuth } from '../../context/userAuth-context';
 
 export default function ProductListing() {
   const [fourStar , setFourstar] = useState();
@@ -30,7 +30,7 @@ export default function ProductListing() {
   const {wishlistDispatch} = useWishlist();
   const {cartDispatch} = useCartlist();
   const {loading ,dispatch ,filteredData , setData} = useProducts();
-  
+  const { isLogIn } = useUserAuth();
   const navigate = useNavigate();
 
 const resetBtns = () => {
@@ -56,9 +56,13 @@ const resetBtns = () => {
 
 
 const addItemToWishlist = async(product) => {
+    if(isLogIn){
     const response = await addToWishlist(product);
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
     setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))
+    }else{
+        navigate('/sign-in');
+    }
 }
 
  const removeItemFromWishlist = async(product) => {
@@ -69,9 +73,14 @@ const addItemToWishlist = async(product) => {
 
 
 const addItemToCartlist = async(product) => {
-    const response = await addToCart(product);
-    cartDispatch({type: 'ADD_TO_CART' , payload : response});
-    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
+    if(isLogIn){
+        const response = await addToCart(product);
+        cartDispatch({type: 'ADD_TO_CART' , payload : response});
+        setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
+    }else{
+        navigate('/sign-in');
+    }
+    
 }
 
 
@@ -412,5 +421,4 @@ useEffect(() => {
        </div>
     </div>
     </>
-    // <i className={product.isAddedInWishlist ? 'lni lni-heart-filled' : 'lni lni-heart'} id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
   )}

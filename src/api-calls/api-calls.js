@@ -1,10 +1,6 @@
 import axios from "axios";
 
-
-const headers = {authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4MTAyMWNjNC00YjFkLTQyOGItYjJmMC0wNjhkYTQ4YTk4MzQiLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.45ynQ6aZhoM1zsNwIKCYR_IATaszKn0ssvnPPQkKL8E' }
-
-
-
+const headers = {authorization: localStorage.getItem('token') };
 const addToWishlist = async(product) => {
     try {
         const response = await axios.post(`/api/user/wishlist` , {product} , {headers})
