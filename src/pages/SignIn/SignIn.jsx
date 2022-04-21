@@ -42,7 +42,7 @@ export function SignIn() {
           navigate(from , {replace:true});
         } 
       } catch (err) {
-          setError("The email you entered is not Registered. Please SignUp!");
+          alert("The email you entered is not Registered. Please SignUp!");
       }
      }else{
       alert('Enter Empty Fields');

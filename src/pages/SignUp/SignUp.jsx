@@ -48,13 +48,13 @@ export function SignUp() {
         setIsLogIn(true);
         navigate(from , { replace:true });
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error(err);
       }
     }else{
       alert('Enter Empty Fields');
     }
-  };
+  }}
   return (
     <>
     <div className="login-container">
