@@ -9,18 +9,20 @@ import Navbar from './components/NavBar/Navbar';
 import Footer from './components/Footer/Footer';
 import { Routes, Route } from "react-router-dom";
 import Mockman from 'mockman-js';
+import { RequiresAuth } from "./components/RequiresAuth";
 
 function App() {
+  
   return (
     <div className="App">
       <Navbar />
       <Routes>
         <Route path='' element={<Home />} />
-        <Route path='/products' exact element={<ProductListing />} />
-        <Route path='/wishlist' exact element={<WishList />} />
+        <Route path='/products' exact element={<RequiresAuth><ProductListing /></RequiresAuth>} />
+        <Route path='/wishlist' exact element={<RequiresAuth><WishList /></RequiresAuth>} />
         <Route path='/sign-in' exact element={<SignIn />} />
         <Route path='/sign-up' exact element={<SignUp />} />
-        <Route path='/cart' exact element={<Cart />} />
+        <Route path='/cart' exact element={<RequiresAuth><Cart /></RequiresAuth>} />
         <Route path='/mock' exact element={<Mockman />} />
       </Routes>
       <Footer />

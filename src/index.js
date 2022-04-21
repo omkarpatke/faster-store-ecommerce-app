@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ProductContextProvider } from "./context/Product-context";
 import { WishlistProvider } from "./context/wishlist-context";
 import { CartListProvider } from "./context/cart-context";
+import { UserContextProvider } from "./context/userAuth-context";
 
 
 // Call make Server
@@ -18,7 +19,9 @@ ReactDOM.render(
     <ProductContextProvider>
       <WishlistProvider>
         <CartListProvider>
-         <App />
+          <UserContextProvider>
+            <App />
+          </UserContextProvider>
         </CartListProvider>
       </WishlistProvider>
     </ProductContextProvider>
