@@ -1,13 +1,10 @@
 import React from 'react';
 import './ProductDetail.css';
 import { useParams , useNavigate } from 'react-router-dom';
-import { useProducts } from '../../context/Product-context';
-import { useToastContext } from '../../context/toastContext';
-import { useCartlist } from '../../context/cart-context';
+import { useProducts, useToastContext, useCartlist, useWishlist } from '../../context/index';
 import { addToCart , addToWishlist , removeFromWishlist } from '../../api-calls/api-calls';
-import { useWishlist } from '../../context/wishlist-context';
 
-export default function ProductDetail() {
+export function ProductDetail() {
   const { productId } = useParams();
   const { filteredData , setData } = useProducts();
   const { cartDispatch } = useCartlist();

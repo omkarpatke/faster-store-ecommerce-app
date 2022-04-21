@@ -1,14 +1,10 @@
 import { addToCart, addToWishlist, getCartlist, getWishlist ,removeFromWishlist} from '../../api-calls/api-calls';
-import { useProducts } from '../../context/Product-context';
-import { useWishlist } from '../../context/wishlist-context';
+import { useProducts, useWishlist, useCartlist, useUserAuth, useToastContext } from '../../context/index';
 import {useEffect , useState} from 'react'
 import './ProductListing.css';
-import { useCartlist } from '../../context/cart-context';
 import { useNavigate , Link } from 'react-router-dom';
-import { useUserAuth } from '../../context/userAuth-context';
-import { useToastContext } from '../../context/toastContext';
 
-export default function ProductListing() {
+export function ProductListing() {
   const [fourStar , setFourstar] = useState();
   const [threeStar , setThreestar] = useState();
   const [twoStar , setTwostar] = useState();

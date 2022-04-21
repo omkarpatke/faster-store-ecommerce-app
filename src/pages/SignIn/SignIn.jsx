@@ -2,11 +2,11 @@ import React , { useState } from 'react';
 import axios from 'axios';
 import './SignIn.css';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useUserAuth } from '../../context/userAuth-context';
-import { useToastContext } from '../../context/toastContext';
+import { useUserAuth, useToastContext } from '../../context/index';
 
 
-export default function SignIn() {
+
+export function SignIn() {
   const navigate = useNavigate();
    const [email , setEmail] = useState();
    const [password , setPassword] = useState();

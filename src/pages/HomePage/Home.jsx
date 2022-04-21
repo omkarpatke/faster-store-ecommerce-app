@@ -2,10 +2,9 @@ import React from 'react';
 import './Home.css';
 import {  Link } from "react-router-dom";
 import homeImg from '../../Images/homeImg.jpg';
-import { useUserAuth } from '../../context/userAuth-context';
-import { useToastContext } from '../../context/toastContext';
+import { useUserAuth, useToastContext } from '../../context/index';
 
-export default function Home() {
+export function Home() {
     const { isLogIn } = useUserAuth();
     const notify = useToastContext();
   return (

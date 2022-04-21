@@ -1,16 +1,8 @@
 import "./App.css";
-import Home from "./pages/HomePage/Home";
-import ProductListing from "./pages/ProductListingPage/ProductListing";
-import Cart from './pages/Cart/Cart';
-import SignIn from './pages/SignIn/SignIn';
-import SignUp from './pages/SignUp/SignUp';
-import WishList from './pages/WishList/WishList';
-import ProductDetail from './pages/ProductDetailPage/ProductDetail';
-import Navbar from './components/NavBar/Navbar';
-import Footer from './components/Footer/Footer';
+import { ProductDetail, WishList, SignUp, SignIn, Cart, ProductListing, Home } from './pages/index';
+import {Navbar, Footer, RequiresAuth } from './components/index';
 import { Routes, Route } from "react-router-dom";
 import Mockman from 'mockman-js';
-import { RequiresAuth } from "./components/RequiresAuth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -36,7 +28,7 @@ function App() {
       <ToastContainer 
       position="top-right"
       autoClose='1200'
-      theme="colored"
+      theme="light"
       />
     </div>
   );

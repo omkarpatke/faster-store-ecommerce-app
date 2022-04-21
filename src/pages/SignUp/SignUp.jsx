@@ -2,10 +2,10 @@ import './SignUp.css';
 import React , { useState } from 'react';
 import { Link , useNavigate , useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { useUserAuth } from '../../context/userAuth-context';
-import { useToastContext } from '../../context/toastContext';
+import { useUserAuth, useToastContext } from '../../context/index';
 
-export default function SignUp() {
+
+export function SignUp() {
   const [name , setName] = useState('');
   const [email , setEmail] = useState('');
   const [password , setPassword] = useState('');

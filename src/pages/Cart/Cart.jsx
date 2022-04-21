@@ -1,13 +1,11 @@
 import React , {useState , useEffect} from 'react';
 import { addToWishlist, removeFromCartlist } from '../../api-calls/api-calls';
-import { useCartlist } from '../../context/cart-context';
-import { useProducts } from '../../context/Product-context';
-import { useWishlist } from '../../context/wishlist-context';
+import { useCartlist, useProducts, useWishlist } from '../../context/index';
 import { Link } from 'react-router-dom';
 import './Cart.css';
 
 
-export default function Cart() {
+export function Cart() {
     let {cartState , cartDispatch} = useCartlist();
     let [cartData , setCartData] = useState([]);
     let [totalItemPrice , setTotalItemsPrice] = useState(0);

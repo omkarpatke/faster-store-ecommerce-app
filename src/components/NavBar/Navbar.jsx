@@ -3,12 +3,9 @@ import './Navbar.css';
 import NavLogo from '../../Images/cycle-favicon.png';
 import ProfileImg from '../../Images/pngwing.com.png';
 import {  Link , useNavigate } from "react-router-dom";
-import { useWishlist } from '../../context/wishlist-context';
-import { useCartlist } from '../../context/cart-context';
-import { useUserAuth } from '../../context/userAuth-context';
-import { useToastContext } from '../../context/toastContext';
+import { useWishlist, useCartlist, useUserAuth, useToastContext } from '../../context/index';
 
-export default function Navbar() {
+export function Navbar() {
     const { isLogIn , setIsLogIn } = useUserAuth();
     const notify = useToastContext();
     const navigate = useNavigate();
