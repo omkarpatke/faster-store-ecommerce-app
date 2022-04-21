@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useUserAuth } from '../../context/userAuth-context';
 import { useToastContext } from '../../context/toastContext';
 
-export function SignUp() {
+export default function SignUp() {
   const [name , setName] = useState('');
   const [email , setEmail] = useState('');
   const [password , setPassword] = useState('');
@@ -56,7 +56,7 @@ export function SignUp() {
       alert('Enter Empty Fields');
 
     }
-  };
+  }}
   return (
     <>
     <div className="login-container">
@@ -85,4 +85,5 @@ export function SignUp() {
     </div>
     </>
   )
-}}
+}
+
