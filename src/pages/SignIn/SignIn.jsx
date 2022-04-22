@@ -3,20 +3,35 @@ import axios from 'axios';
 import './SignIn.css';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useUserAuth } from '../../context/userAuth-context';
+import { useToastContext } from '../../context/toastContext';
 
 
 export default function SignIn() {
   const navigate = useNavigate();
    const [email , setEmail] = useState();
    const [password , setPassword] = useState();
-   const [error , setError] = useState('');
    const { setIsLogIn } = useUserAuth();  
    const location = useLocation();
    const from = location.state?.from?.pathname || "/" ;
-
+   const  notify  = useToastContext();
 
    const loginHandler = async(e) => {
      e.preventDefault();
+
+    try {
+      const response = await axios.post(`/api/auth/login`, {
+        email , password
+      });
+      if(response.status === 200){
+        localStorage.setItem("token", response.data.encodedToken);
+        setIsLogIn(true);
+        notify('You Are Successfully LogIn!' , {type:'success'});
+        navigate(from , {replace:true});
+      } 
+    } catch (err) {
+        notify('The email you entered is not Registered. Please SignUp!' ,{ type:'error'});
+    }
+
      if(email && password){
       try {
         const response = await axios.post(`/api/auth/login`, {
@@ -28,11 +43,12 @@ export default function SignIn() {
           navigate(from , {replace:true});
         } 
       } catch (err) {
-          setError("The email you entered is not Registered. Please SignUp!");
+          alert("The email you entered is not Registered. Please SignUp!");
       }
      }else{
       alert('Enter Empty Fields');
      }
+
   }
 
   const guestLoginHandler = () => {
@@ -45,7 +61,6 @@ export default function SignIn() {
     <div className="login-container">
         <h3 className="login-heading">Account Information</h3>
         <div className="login-card">
-          <div className="error-msg" style={{color:"red"}}>{error}</div>
             <h2>LogIn</h2>
             <form className="logIn-form" onSubmit={loginHandler}>
                 <label htmlFor='login-eamil-input' aria-required="true">E-mail address<span>*</span></label>
