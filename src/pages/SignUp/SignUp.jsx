@@ -2,10 +2,15 @@ import './SignUp.css';
 import React , { useState } from 'react';
 import { Link , useNavigate , useLocation } from 'react-router-dom';
 import axios from 'axios';
+
+import { useUserAuth, useToastContext } from '../../context/index';
+
 import { useUserAuth } from '../../context/userAuth-context';
 import { useToastContext } from '../../context/toastContext';
 
-export default function SignUp() {
+
+
+export function SignUp() {
   const [name , setName] = useState('');
   const [email , setEmail] = useState('');
   const [password , setPassword] = useState('');
@@ -29,13 +34,21 @@ export default function SignUp() {
       // saving the encodedToken in the localStorage
       if(response.status === 201){
       localStorage.setItem("token", response.data.encodedToken);
+
+      notify('You Are Successfully Signup!' , {type:'info'});
+
       notify('You Are Successfully Signup!' , {type:'success'});
+
       setIsLogIn(true);
       navigate(from , { replace:true });
       }
     } catch (error) {
       notify("error" , {type:'error'});
+
+    if(name && lastName && email && password){
+
    if(name && lastName && email && password){
+
       try {
         const response = await axios.post(`/api/auth/signup`, ({
           firstName: name,

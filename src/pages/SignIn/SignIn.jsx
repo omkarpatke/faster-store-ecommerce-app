@@ -2,11 +2,16 @@ import React , { useState } from 'react';
 import axios from 'axios';
 import './SignIn.css';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+
+import { useUserAuth, useToastContext } from '../../context/index';
+
 import { useUserAuth } from '../../context/userAuth-context';
 import { useToastContext } from '../../context/toastContext';
 
 
-export default function SignIn() {
+
+
+export function SignIn() {
   const navigate = useNavigate();
    const [email , setEmail] = useState();
    const [password , setPassword] = useState();
@@ -25,12 +30,19 @@ export default function SignIn() {
       if(response.status === 200){
         localStorage.setItem("token", response.data.encodedToken);
         setIsLogIn(true);
+
+        notify('You Are Successfully LogIn!' , {type:'info'});
+
         notify('You Are Successfully LogIn!' , {type:'success'});
+
         navigate(from , {replace:true});
       } 
     } catch (err) {
         notify('The email you entered is not Registered. Please SignUp!' ,{ type:'error'});
     }
+
+
+
 
      if(email && password){
       try {

@@ -1,14 +1,17 @@
 import { addToCart, addToWishlist, getCartlist, getWishlist ,removeFromWishlist} from '../../api-calls/api-calls';
-import { useProducts } from '../../context/Product-context';
-import { useWishlist } from '../../context/wishlist-context';
+import { useProducts, useWishlist, useCartlist, useUserAuth, useToastContext } from '../../context/index';
 import {useEffect , useState} from 'react'
 import './ProductListing.css';
+
+import { useNavigate , Link } from 'react-router-dom';
+
 import { useCartlist } from '../../context/cart-context';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../context/userAuth-context';
 import { useToastContext } from '../../context/toastContext';
 
-export default function ProductListing() {
+
+export function ProductListing() {
   const [fourStar , setFourstar] = useState();
   const [threeStar , setThreestar] = useState();
   const [twoStar , setTwostar] = useState();
@@ -60,18 +63,30 @@ const resetBtns = () => {
 const addItemToWishlist = async(product) => {
     if(isLogIn){
     const response = await addToWishlist(product);
+
+    notify('Item Added In Wishlist' , {type:'info'});
+    wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
+    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))
+    }else{
+        notify('LogIn First!' , {type:'error'});
+
     notify('Item Added In Wishlist' , {type:'success'});
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
     setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))
     }else{
         notify('LogIn First!' , {type:'warning'});
+
         navigate('/sign-in');
     }
 }
 
  const removeItemFromWishlist = async(product) => {
     const response = await removeFromWishlist(product);
+
+    notify('Item Remove From Wishlist' , {type:'info'});
+
     notify('Item Remove From Wishlist' , {type:'success'});
+
     wishlistDispatch({type: 'REMOVE_FROM_WISHLIST' , payload: response.wishlist})
     setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:false} : item)))
   }
@@ -80,7 +95,11 @@ const addItemToWishlist = async(product) => {
 const addItemToCartlist = async(product) => {
     if(isLogIn){
         const response = await addToCart(product);
+
+        notify('Item Added In Cart' , {type:'info'});
+
         notify('Item Added In Cart' , {type:'success'});
+
         cartDispatch({type: 'ADD_TO_CART' , payload : response});
         setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
     }else{
@@ -413,11 +432,11 @@ useEffect(() => {
                  ?<i className='lni lni-heart-filled' id="product-wishlist-icon" onClick={() => removeItemFromWishlist(product)}></i>
                   :<i className='lni lni-heart' id="product-wishlist-icon" onClick={() => addItemToWishlist(product)}></i>
                 }
-                <img className="product-img" src={product.img} alt="cycle-img"/>
+                <Link to={`/products/${product._id}`}><img className="product-img" src={product.img} alt="cycle-img"/></Link>
                 <div className="product-desc">{product.desc}</div>
                 <div className="product-price">MRP: ₹{product.price} <span className='product-rating'>{product.rating}  <i className="lni lni-star-filled"></i></span></div>
                 <div className="product-links">
-                    <button className="product-btn">KNOW MORE</button>
+                    <Link className="product-btn" to={`/products/${product._id}`}>KNOW MORE</Link>
                     {product.isItemAddedInCart
                     ? <button className="product-btn" onClick={() => navigate('/cart')}>Go To Cart</button>
                     : <button className="product-btn" onClick={() => addItemToCartlist(product)}>Add To Cart</button>

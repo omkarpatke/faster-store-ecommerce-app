@@ -1,17 +1,16 @@
 import "./App.css";
-import Home from "./pages/HomePage/Home";
-import ProductListing from "./pages/ProductListingPage/ProductListing";
-import Cart from './pages/Cart/Cart';
-import SignIn from './pages/SignIn/SignIn';
-import SignUp from './pages/SignUp/SignUp';
-import WishList from './pages/WishList/WishList';
-import Navbar from './components/NavBar/Navbar';
-import Footer from './components/Footer/Footer';
+import { ProductDetail, WishList, SignUp, SignIn, Cart, ProductListing, Home } from './pages/index';
+import {Navbar, Footer, RequiresAuth } from './components/index';
 import { Routes, Route } from "react-router-dom";
 import Mockman from 'mockman-js';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { RequiresAuth } from "./components/RequiresAuth";
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+
 
 toast.configure();
 
@@ -23,6 +22,7 @@ function App() {
       <Routes>
         <Route path='' element={<Home />} />
         <Route path='/products' exact element={<RequiresAuth><ProductListing /></RequiresAuth>} />
+        <Route path='/products/:productId' exact element={<ProductDetail /> }/>
         <Route path='/wishlist' exact element={<RequiresAuth><WishList /></RequiresAuth>} />
         <Route path='/sign-in' exact element={<SignIn />} />
         <Route path='/sign-up' exact element={<SignUp />} />
@@ -35,6 +35,12 @@ function App() {
       theme="light"
       />
       <Footer />
+
+      <ToastContainer 
+      position="top-right"
+      autoClose='1200'
+      theme="light"
+      />
     </div>
   );
 }

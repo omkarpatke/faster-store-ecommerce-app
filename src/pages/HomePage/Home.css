@@ -32,6 +32,7 @@
 
 .guide-info{
     padding: 4rem 6rem 4rem 7rem;
+    text-align: initial;
 }
 
 .guide-heading{
@@ -60,6 +61,7 @@
 .top-cycles-info{
     margin-right: 8rem;
     margin-top: 3rem;
+    text-align: initial;
 }
 
 .cycle-desc{
