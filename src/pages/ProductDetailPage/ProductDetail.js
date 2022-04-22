@@ -15,21 +15,21 @@ export function ProductDetail() {
   const { img, price, desc, rating, isAddedInWishlist, isItemAddedInCart } = currentProduct;
   const addItemToCartlist = async(product) => {
         const response = await addToCart(product);
-        notify('Item Added In Cart' , {type:'info'});
+        notify('Item Added In Cart' , {type:'success'});
         cartDispatch({type: 'ADD_TO_CART' , payload : response});
         setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
     } 
 
     const addItemToWishlist = async(product) => {
       const response = await addToWishlist(product);
-      notify('Item Added In Wishlist' , {type:'info'});
+      notify('Item Added In Wishlist' , {type:'success'});
       wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
       setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))    
     }
 
     const removeItemFromWishlist = async(product) => {
       const response = await removeFromWishlist(product);
-      notify('Item Remove From Wishlist' , {type:'info'});
+      notify('Item Remove From Wishlist' , {type:'success'});
       wishlistDispatch({type: 'REMOVE_FROM_WISHLIST' , payload: response.wishlist})
       setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:false} : item)))
     }

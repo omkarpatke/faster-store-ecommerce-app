@@ -1,5 +1,5 @@
 import { addToCart, addToWishlist, getCartlist, getWishlist ,removeFromWishlist} from '../../api-calls/api-calls';
-import { useProducts, useWishlist, useCartlist, useUserAuth, useToastContext } from '../../context/index';
+import { useProducts, useWishlist, useCartlist, useToastContext } from '../../context/index';
 import {useEffect , useState} from 'react'
 import './ProductListing.css';
 import { useNavigate , Link } from 'react-router-dom';
@@ -28,7 +28,6 @@ export function ProductListing() {
   const {wishlistDispatch} = useWishlist();
   const {cartDispatch} = useCartlist();
   const {loading ,dispatch ,filteredData , setData} = useProducts();
-  const { isLogIn } = useUserAuth();
   const navigate = useNavigate();
   const notify = useToastContext();
 
@@ -55,16 +54,10 @@ const resetBtns = () => {
 
 
 const addItemToWishlist = async(product) => {
-    if(isLogIn){
     const response = await addToWishlist(product);
-
-    notify('Item Added In Wishlist' , {type:'info'});
+    notify('Item Added In Wishlist' , {type:'success'});
     wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
     setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))
-    }else{
-        notify('LogIn First!' , {type:'warning'});
-        navigate('/sign-in');
-    }
 }
 
  const removeItemFromWishlist = async(product) => {
@@ -75,18 +68,14 @@ const addItemToWishlist = async(product) => {
   }
 
 
-const addItemToCartlist = async(product) => {
-    if(isLogIn){
+const addItemToCartlist = async(product) => {    
         const response = await addToCart(product);
         notify('Item Added In Cart' , {type:'success'});
         cartDispatch({type: 'ADD_TO_CART' , payload : response});
         setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
-    }else{
-        notify('LogIn First!' , {type:'error'});
-        navigate('/sign-in');
     }
     
-}
+
 
 
 useEffect(() => {
