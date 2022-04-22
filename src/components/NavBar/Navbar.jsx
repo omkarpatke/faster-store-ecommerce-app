@@ -3,19 +3,14 @@ import './Navbar.css';
 import NavLogo from '../../Images/cycle-favicon.png';
 import ProfileImg from '../../Images/pngwing.com.png';
 import {  Link , useNavigate } from "react-router-dom";
-
 import { useWishlist, useCartlist, useUserAuth, useToastContext } from '../../context/index';
-
-import { useWishlist } from '../../context/wishlist-context';
-import { useCartlist } from '../../context/cart-context';
-import { useUserAuth } from '../../context/userAuth-context';
-import { useToastContext } from '../../context/toastContext';
-
 
 export function Navbar() {
     const { isLogIn , setIsLogIn } = useUserAuth();
     const notify = useToastContext();
     const navigate = useNavigate();
+
+
     let wishlistState = useWishlist();
     let wishlistLength
     if(wishlistState.wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.wishlistState.type === 'REMOVE_FROM_WISHLIST'){
@@ -35,11 +30,7 @@ export function Navbar() {
     }
 
     const logoutHandler = () => {
-
-        notify('You Are Successfully Logout!' , {type:'info'});
-
         notify('You Are Successfully Logout!' , {type:'success'});
-
         setIsLogIn(false);
         localStorage.clear();
         navigate('/');
