@@ -6,7 +6,7 @@ const addToWishlist = async(product) => {
         const response = await axios.post(`/api/user/wishlist` , {product} , {headers})
         return {wishlist : response.data.wishlist}
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 } 
 
@@ -15,7 +15,7 @@ const addToCart = async(product) => {
         const response = await axios.post(`/api/user/cart` , {product} , {headers});
         return {cartlist : response.data.cart}
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 } 
 
@@ -31,7 +31,7 @@ const removeFromWishlist = async(product) => {
           });
         return { wishlist : response.data.wishlist}
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 }
 
@@ -47,7 +47,7 @@ const removeFromCartlist = async(product) => {
           });
         return { cartlist : response}
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 }
 
@@ -56,7 +56,7 @@ const getWishlist = async() => {
         const response = await axios.get(`/api/user/wishlist` , {headers})
         return {wishlist : response.data.wishlist}
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 } 
 
@@ -65,7 +65,7 @@ const getCartlist = async() => {
         const response = await axios.get(`/api/user/cart` , {headers})
         return {cart : response.data.cart}
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 } 
 
