@@ -7,9 +7,11 @@ import { useWishlist, useCartlist, useUserAuth, useToastContext } from '../../co
 
 export function Navbar() {
     const { isLogIn , setIsLogIn } = useUserAuth();
+
+    
+   
     const notify = useToastContext();
     const navigate = useNavigate();
-
 
     let wishlistState = useWishlist();
     let wishlistLength
@@ -36,6 +38,8 @@ export function Navbar() {
         navigate('/');
      }
 
+     
+
 
   return (
     <>
@@ -58,12 +62,12 @@ export function Navbar() {
 
         <div className="wishlist">
             <Link to='/wishlist' className="nav-wishlist-icon" title="WishList"><i className="lni lni-heart"></i></Link>
-            <span className="wishlist-items-number">{wishlistLength}</span>
+            <span className="wishlist-items-number">{isLogIn ? wishlistLength : '0'}</span>
         </div>
 
         <div className="cart">
             <Link to='/cart' className="cart-icon" title="Cart"><i className="lni lni-cart-full"></i></Link>
-            <span className="cart-items-number">{cartlistLength}</span>
+            <span className="cart-items-number">{isLogIn ? cartlistLength : '0'}</span>
         </div>
 
         <div className="user-profile">
