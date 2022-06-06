@@ -60,7 +60,7 @@ export function SignUp() {
                 <input type="email" name="user-email" required id="login-eamil-input" value={email} onChange={ event => setEmail(event.target.value)}/>
 
                 <label htmlFor="login-password" aria-required="true">Password<span>*</span></label>
-                <input type="password" name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}/>
+                <input type="password" name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}><i class="fa-solid fa-eye-slash"></i></input>
 
                 <button className="login-btn" type="submit" onClick={(event) => signupHandler(event)}> Sign Up </button>
             </form>
