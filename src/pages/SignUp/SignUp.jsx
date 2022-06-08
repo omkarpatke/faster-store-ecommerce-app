@@ -2,12 +2,7 @@ import './SignUp.css';
 import React , { useState } from 'react';
 import { Link , useNavigate , useLocation } from 'react-router-dom';
 import axios from 'axios';
-
 import { useUserAuth, useToastContext } from '../../context/index';
-
-import { useUserAuth } from '../../context/userAuth-context';
-import { useToastContext } from '../../context/toastContext';
-
 
 
 export function SignUp() {
@@ -23,32 +18,7 @@ export function SignUp() {
 
   const signupHandler = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await axios.post(`/api/auth/signup`, ({
-        firstName: name,
-        lastName: lastName,
-        email: email,
-        password: password,
-      }));
-      // saving the encodedToken in the localStorage
-      if(response.status === 201){
-      localStorage.setItem("token", response.data.encodedToken);
-
-      notify('You Are Successfully Signup!' , {type:'info'});
-
-      notify('You Are Successfully Signup!' , {type:'success'});
-
-      setIsLogIn(true);
-      navigate(from , { replace:true });
-      }
-    } catch (error) {
-      notify("error" , {type:'error'});
-
     if(name && lastName && email && password){
-
-   if(name && lastName && email && password){
-
       try {
         const response = await axios.post(`/api/auth/signup`, ({
           firstName: name,
@@ -59,17 +29,20 @@ export function SignUp() {
         // saving the encodedToken in the localStorage
         if(response.status === 201){
         localStorage.setItem("token", response.data.encodedToken);
-        setIsLogIn(true);
-        navigate(from , { replace:true });
+        let getTokenFromLocalStorage = localStorage.getItem('token')
+        if(getTokenFromLocalStorage){
+          notify('You Are Successfully Signup!',{type:'success'});
+          setIsLogIn(true);
+          navigate(from , { replace:true });
+        }
         }
       } catch (err) {
         console.error(err);
       }
     }else{
-      alert('Enter Empty Fields');
-
+      notify('Enter Empty Fields',{type:'warning'});
     }
-  }}
+  }
   return (
     <>
     <div className="login-container">
@@ -87,7 +60,7 @@ export function SignUp() {
                 <input type="email" name="user-email" required id="login-eamil-input" value={email} onChange={ event => setEmail(event.target.value)}/>
 
                 <label htmlFor="login-password" aria-required="true">Password<span>*</span></label>
-                <input type="password" name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}/>
+                <input type="password" name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}><i class="fa-solid fa-eye-slash"></i></input>
 
                 <button className="login-btn" type="submit" onClick={(event) => signupHandler(event)}> Sign Up </button>
             </form>

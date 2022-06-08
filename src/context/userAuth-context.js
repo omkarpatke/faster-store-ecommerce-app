@@ -1,12 +1,22 @@
-import { createContext , useState , useContext } from "react";
+import { createContext , useState , useContext, useEffect } from "react";
+
 
 
 const UserContext = createContext('');
-
 const useUserAuth = () => useContext(UserContext);
+
+
 
 const UserContextProvider = ({children}) => {
     const [isLogIn , setIsLogIn] = useState(false);
+
+    useEffect(() => {
+       if(localStorage.getItem('token')){
+           setIsLogIn(true);
+       }else{
+           setIsLogIn(false);
+       }
+    },[])
 
     
 

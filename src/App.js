@@ -3,15 +3,8 @@ import { ProductDetail, WishList, SignUp, SignIn, Cart, ProductListing, Home } f
 import {Navbar, Footer, RequiresAuth } from './components/index';
 import { Routes, Route } from "react-router-dom";
 import Mockman from 'mockman-js';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { RequiresAuth } from "./components/RequiresAuth";
-import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
-
-
 toast.configure();
 
 function App() {
