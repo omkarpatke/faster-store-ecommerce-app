@@ -10,7 +10,6 @@ const useProducts = () => useContext(ProductContext);
 const ProductContextProvider = ({children}) => {
     const [loading , setLoading] = useState(true);
     const [data , setData] = useState([]);
-
     const highToLowPrice = (a,b) => {
        return [b.price - a.price];
     }
@@ -119,6 +118,14 @@ return products;
     return products
 }} 
 
+const searchedData = (products , searchInput) => {
+    if(searchInput){
+        return products.filter(item => item.brand.includes(searchInput))
+    }else{
+        return products;
+    }
+  } 
+
 
 
 
@@ -180,6 +187,11 @@ return products;
             case 'FEMALE':
                 return { ...accu, payload: action.payload, type: action.type };
 
+
+            // searchInput
+            case 'SEARCH_INPUT':
+                return { ...accu, payload: action.payload, type: action.type };
+
             default:
                 return accu;
         }
@@ -187,16 +199,17 @@ return products;
     const [state , dispatch] = useReducer(reducer , {type:'none',payload:'none'});
 
 
-    const getFilteredData = (products) => {
+    const getFilteredData = (products, searchInput) => {
         const sortedProducts = sortedData(products);
         const ratingsFilterData = ratingFilterData(sortedProducts);
         const brandsFilterData = brandFilterData(ratingsFilterData);
         const bikesFilterData = bikeFilterData(brandsFilterData);
-        const gendersFilterData = genderFilterData(bikesFilterData)
-        return gendersFilterData;
+        const gendersFilterData = genderFilterData(bikesFilterData);
+        const searchFilterData = searchedData(gendersFilterData , searchInput);
+        return searchFilterData;
     }
     
-    const filteredData = getFilteredData(data);
+    const filteredData = getFilteredData(data , state.type === 'SEARCH_INPUT' ? state.payload : '');
     
     
     useEffect(() => {
@@ -216,7 +229,7 @@ return products;
     },[])
     
     
-    return (<ProductContext.Provider value={{setData, loading , reducer , dispatch ,state ,filteredData}}>{children}</ProductContext.Provider>)
+    return (<ProductContext.Provider value={{setData, loading , reducer , dispatch ,state ,filteredData , searchedData , data }}>{children}</ProductContext.Provider>)
 }
 
 export {useProducts , ProductContextProvider};

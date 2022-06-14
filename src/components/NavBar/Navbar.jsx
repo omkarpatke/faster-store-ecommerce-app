@@ -3,12 +3,11 @@ import './Navbar.css';
 import NavLogo from '../../Images/cycle-favicon.png';
 import ProfileImg from '../../Images/pngwing.com.png';
 import {  Link , useNavigate } from "react-router-dom";
-import { useWishlist, useCartlist, useUserAuth, useToastContext } from '../../context/index';
+import { useWishlist, useCartlist, useUserAuth, useToastContext , useProducts} from '../../context/index';
 
 export function Navbar() {
     const { isLogIn , setIsLogIn } = useUserAuth();
-
-    
+    const { dispatch } = useProducts();
    
     const notify = useToastContext();
     const navigate = useNavigate();
@@ -57,7 +56,7 @@ export function Navbar() {
         </div>
        <div className="nav-contents">
         <div className="search-bar">
-            <input type="search" placeholder="Search" className="search-input"/>
+            <input type="search" placeholder="Search" className="search-input" onChange={(e) => dispatch({type:'SEARCH_INPUT' , payload: e.target.value })}/>
         </div>
 
         <div className="wishlist">
