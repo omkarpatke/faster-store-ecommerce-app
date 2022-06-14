@@ -1,8 +1,9 @@
 import React , {useState , useEffect} from 'react';
 import { addToWishlist, removeFromCartlist } from '../../api-calls/api-calls';
 import { useCartlist, useProducts, useWishlist } from '../../context/index';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Cart.css';
+import { toast } from 'react-toastify';
 
 
 export function Cart() {
@@ -13,6 +14,7 @@ export function Cart() {
     let [deliveryCharges , setDeliveryCharges] = useState(0);
     let [totalAmount , setTotalAmount] = useState(0);
     let {setData} = useProducts();
+    let navigate = useNavigate();
     const {wishlistDispatch} = useWishlist();
 
     
@@ -69,7 +71,8 @@ export function Cart() {
             setTotalAmount(totalItemPrice - totalDiscountPrice + deliveryCharges)
         }
         getTotalAmount();
-    },[cartData ,deliveryCharges ,totalDiscountPrice , totalItemPrice]);
+        cartDispatch({type:'CHECKOUT_DETAILS' ,payload: [cartData ,deliveryCharges ,totalDiscountPrice , totalItemPrice, totalItemPrice - totalDiscountPrice + deliveryCharges]});
+    },[cartData ,deliveryCharges ,totalDiscountPrice , totalItemPrice , cartDispatch]);
 
     
     const removeItemFromCartlist = async(product) => {
@@ -133,7 +136,7 @@ export function Cart() {
                         <p>Total Amount</p>
                         <div>₹ {totalAmount}</div>
                     </div>
-                    <button className="proceed-to-checkout-btn">Proceed To Checkout</button>
+                    <button className="proceed-to-checkout-btn" onClick={() => cartData.length > 0 ? navigate('/checkout') : toast('Empty Cart!' , {type : 'danger'})}>Proceed To Checkout</button>
                 </div>
         </div>
     

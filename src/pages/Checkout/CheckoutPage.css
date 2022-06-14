@@ -1,0 +1,101 @@
+.checkout-container{
+    min-height: 94vh;
+    margin: 2rem 0;
+}
+
+.section-container{
+    display: flex;
+    justify-content: center;
+    gap: 10rem;
+}
+
+.border-bottom{
+    border-bottom: 1px solid gainsboro;
+}
+
+.checkout-items{
+    display: flex;
+    justify-content: space-between;
+    gap: 5rem;
+}
+
+.title{
+    font-weight: 600;
+    border-bottom: none;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.form-inputs{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-inputs input{
+    width: 28rem;
+    height: 2.1rem;
+    padding-left: 10px;
+    margin: 6px;
+}
+
+.form-btns{
+   display: flex;
+   gap: 10px;
+}
+
+.checkout-sub-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.order-details{
+    text-align: initial;
+    line-height: 1.7;
+}
+
+.form{
+    position: fixed;
+    top: 24%;
+    left: 34%;
+    box-shadow: 2px 4px 20px 8px rgb(255 255 255);;
+    background-color: rgb(231, 230, 230);
+}
+
+.paymentBtn{
+    margin-top: 2rem;
+}
+
+.hidden{
+    display: none;
+}
+
+.userAddress{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    text-align: initial;
+}
+
+.address-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.checkout-heading{
+    margin-bottom: 1rem;
+}
+
+.total-amount{
+    font-weight: 600;
+}
