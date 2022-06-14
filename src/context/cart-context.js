@@ -12,13 +12,16 @@ const CartListProvider = ({children}) => {
     
             case 'REMOVE_FROM_CARTLIST':
                 return {...accu ,type: action.type , payload: action.payload}
+
+            case 'CHECKOUT_DETAILS':
+                return {...accu , type: action.type , checkout_details: action.payload}
     
             default : 
                return {...accu}
         }
     }
 
-    const [cartState , cartDispatch] = useReducer(cartReducer , {type:'none' , payload:'none'})
+    const [cartState , cartDispatch] = useReducer(cartReducer , {type:'none' , payload:'none', checkout_details:''})
 
     
     return (<CartContext.Provider value={{cartState , cartDispatch}}>{children}</CartContext.Provider>)
