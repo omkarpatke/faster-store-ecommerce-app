@@ -3,7 +3,6 @@ import { addToWishlist, removeFromCartlist } from '../../api-calls/api-calls';
 import { useCartlist, useProducts, useWishlist } from '../../context/index';
 import { Link, useNavigate } from 'react-router-dom';
 import './Cart.css';
-import { toast } from 'react-toastify';
 
 
 export function Cart() {
@@ -72,7 +71,7 @@ export function Cart() {
         }
         getTotalAmount();
         cartDispatch({type:'CHECKOUT_DETAILS' ,payload: [cartData ,deliveryCharges ,totalDiscountPrice , totalItemPrice, totalItemPrice - totalDiscountPrice + deliveryCharges]});
-    },[cartData ,deliveryCharges ,totalDiscountPrice , totalItemPrice , cartDispatch]);
+    },[cartData ,deliveryCharges ,totalDiscountPrice , totalItemPrice]);
 
     
     const removeItemFromCartlist = async(product) => {
@@ -136,7 +135,7 @@ export function Cart() {
                         <p>Total Amount</p>
                         <div>₹ {totalAmount}</div>
                     </div>
-                    <button className="proceed-to-checkout-btn" onClick={() => cartData.length > 0 ? navigate('/checkout') : toast('Empty Cart!' , {type : 'danger'})}>Proceed To Checkout</button>
+                    <button className="proceed-to-checkout-btn" onClick={() => navigate('/checkout')}>Proceed To Checkout</button>
                 </div>
         </div>
     

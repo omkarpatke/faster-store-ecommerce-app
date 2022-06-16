@@ -1,34 +1,33 @@
-import React from 'react';
+import React , { useState, useEffect } from 'react';
 import './Navbar.css';
 import NavLogo from '../../Images/cycle-favicon.png';
 import ProfileImg from '../../Images/pngwing.com.png';
 import {  Link , useNavigate } from "react-router-dom";
 import { useWishlist, useCartlist, useUserAuth, useToastContext , useProducts} from '../../context/index';
+import { getCartlist, getWishlist } from '../../api-calls/api-calls';
 
 export function Navbar() {
     const { isLogIn , setIsLogIn } = useUserAuth();
+    const [wishlistLength , setWishlistLength] = useState(0);
+    const [cartlistLength , setCartlistLength] = useState(0);
     const { dispatch } = useProducts();
-   
     const notify = useToastContext();
     const navigate = useNavigate();
-
-    let wishlistState = useWishlist();
-    let wishlistLength
-    if(wishlistState.wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.wishlistState.type === 'REMOVE_FROM_WISHLIST'){
-      wishlistLength = wishlistState.wishlistState.payload.length
-    }else if(wishlistState.wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.wishlistState.payload === 'none'){
-        wishlistLength = 0;
-    }
-
     let cartState = useCartlist();
-    let cartlistLength;
-    if(cartState.cartState.type === 'ADD_TO_CART'){
-        cartlistLength = cartState.cartState.payload.cartlist.length
-    }else if(cartState.cartState.type === 'REMOVE_FROM_CARTLIST'){
-        cartlistLength = cartState.cartState.payload.length
-    }else if(cartState.cartState.type === 'ADD_TO_CART' || cartState.cartState.payload === 'none'){
-        cartlistLength = 0;
+    let wishlistState = useWishlist();
+
+
+    const getData = async() => {
+        const getCartLength = await getCartlist();
+        const getWishListLength = await getWishlist();
+        setWishlistLength(getWishListLength.wishlist.length);
+        setCartlistLength(getCartLength.cart.length);
     }
+
+    useEffect(() => {
+        getData();
+    },[cartState , wishlistState]);
+
 
     const logoutHandler = () => {
         notify('You Are Successfully Logout!' , {type:'success'});
@@ -36,8 +35,6 @@ export function Navbar() {
         localStorage.clear();
         navigate('/');
      }
-
-     
 
 
   return (
