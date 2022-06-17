@@ -3,7 +3,6 @@ import { addToWishlist, removeFromCartlist } from '../../api-calls/api-calls';
 import { useCartlist, useProducts, useWishlist } from '../../context/index';
 import { Link, useNavigate } from 'react-router-dom';
 import './Cart.css';
-import { toast } from 'react-toastify';
 
 
 export function Cart() {
@@ -78,6 +77,7 @@ export function Cart() {
     const removeItemFromCartlist = async(product) => {
         const response = await removeFromCartlist(product);
         cartDispatch({type:'REMOVE_FROM_CARTLIST' , payload:response.cartlist.data.cart})
+        setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart:false} : item)))
       }
 
       const addItemToWishlist = async(product) => {
@@ -136,7 +136,7 @@ export function Cart() {
                         <p>Total Amount</p>
                         <div>₹ {totalAmount}</div>
                     </div>
-                    <button className="proceed-to-checkout-btn" onClick={() => cartData.length > 0 ? navigate('/checkout') : toast('Empty Cart!' , {type : 'danger'})}>Proceed To Checkout</button>
+                    <button className="proceed-to-checkout-btn" onClick={() => navigate('/checkout')}>Proceed To Checkout</button>
                 </div>
         </div>
     

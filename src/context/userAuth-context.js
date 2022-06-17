@@ -9,6 +9,7 @@ const useUserAuth = () => useContext(UserContext);
 
 const UserContextProvider = ({children}) => {
     const [isLogIn , setIsLogIn] = useState(false);
+    const [userData , setUserData] = useState([]);
 
     useEffect(() => {
        if(localStorage.getItem('token')){
@@ -21,7 +22,7 @@ const UserContextProvider = ({children}) => {
     
 
 
-    return (<UserContext.Provider value={{ isLogIn , setIsLogIn }}>{children}</UserContext.Provider>)
+    return (<UserContext.Provider value={{ isLogIn , setIsLogIn, setUserData , userData }}>{children}</UserContext.Provider>)
 }
 
 export { useUserAuth , UserContextProvider }

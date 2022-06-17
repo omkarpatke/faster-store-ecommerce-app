@@ -1,11 +1,10 @@
 import "./App.css";
-import { ProductDetail, WishList, SignUp, SignIn, Cart, ProductListing, Home } from './pages/index';
+import { ProductDetail,ProfilePage, CheckoutPage, WishList, SignUp, SignIn, Cart, ProductListing, Home } from './pages/index';
 import {Navbar, Footer, RequiresAuth } from './components/index';
 import { Routes, Route } from "react-router-dom";
 import Mockman from 'mockman-js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CheckoutPage from "./pages/Checkout/CheckoutPage";
 toast.configure();
 
 function App() {
@@ -22,6 +21,7 @@ function App() {
         <Route path='/sign-up' exact element={<SignUp />} />
         <Route path='/cart' exact element={<RequiresAuth><Cart /></RequiresAuth>} />
         <Route path='/checkout' exact element={<RequiresAuth><CheckoutPage /></RequiresAuth>} />
+        <Route path='/user-profile' exact element={<RequiresAuth><ProfilePage /></RequiresAuth>} />
         <Route path='/mock' exact element={<Mockman />} />
       </Routes>
       <ToastContainer 

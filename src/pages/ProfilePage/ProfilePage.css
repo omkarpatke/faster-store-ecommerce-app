@@ -1,0 +1,39 @@
+.profile-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 92vh;
+}
+
+.profile-cart{
+    display: flex;
+    gap: 2rem;
+    border: 1px solid black;
+    padding: 4rem;
+    border-radius: 10px;
+    text-align: initial;
+    line-height: 2;
+}
+
+.profile-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--primary-color);
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    height: 9rem;
+    width: 9rem;
+    font-size: 4rem;
+    border-radius: 50%;
+}
+
+.useremail{
+    margin-bottom: 1rem;
+}
+
+.userIcon{
+    background-color: var(--white-color);
+    border: none;
+}

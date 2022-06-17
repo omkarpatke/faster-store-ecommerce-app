@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCartlist, useToastContext } from '../../context';
 import './CheckoutPage.css';
 
-export default function CheckoutPage() {
+export function CheckoutPage() {
     const { cartState } = useCartlist();
     const [userAddress , setUserAddress] = useState([]);
     const [name , setName] = useState('');

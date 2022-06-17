@@ -9,7 +9,7 @@ export function SignIn() {
   const navigate = useNavigate();
    const [email , setEmail] = useState();
    const [password , setPassword] = useState();
-   const { setIsLogIn } = useUserAuth();  
+   const { setIsLogIn , setUserData } = useUserAuth();  
    const location = useLocation();
    const from = location.state?.from?.pathname || "/" ;
    const notify  = useToastContext();
@@ -27,6 +27,7 @@ export function SignIn() {
           if(getTokenFromLocalStorage){
             notify('You Are Successfully Login!',{type:'success'});
             setIsLogIn(true);
+            setUserData({email ,password , name : 'guestName' , lastName: 'guestLastName'});
             navigate(from , {replace:true});
           }
         } 
