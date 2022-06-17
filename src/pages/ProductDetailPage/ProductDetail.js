@@ -13,6 +13,7 @@ export function ProductDetail() {
   const currentProduct = filteredData.filter(item => item._id === productId)[0];
   const navigate = useNavigate();
   const { img, price, desc, rating, isAddedInWishlist, isItemAddedInCart } = currentProduct;
+
   const addItemToCartlist = async(product) => {
         const response = await addToCart(product);
         notify('Item Added In Cart' , {type:'success'});

@@ -44,7 +44,7 @@ export function Home() {
                     <h4 className="cycle-desc">Mach City iBike Single Speed Medium Matt Black</h4>
                     <h4 className="cycle-price">MRP: 9,170</h4>
                     {isLogIn 
-                       ? <Link to='/products/3038e69d-3ca8-4ec6-bfba-5d798140ab5d' className="btn link-btn"> Details </Link>
+                       ? <Link to='/products' className="btn link-btn"> Details </Link>
                        : <button className="btn link-btn" onClick={() => notify('Please Login!' , {type:'info'})}> Details </button>
                     }
                 </div>

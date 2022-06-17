@@ -77,6 +77,7 @@ export function Cart() {
     const removeItemFromCartlist = async(product) => {
         const response = await removeFromCartlist(product);
         cartDispatch({type:'REMOVE_FROM_CARTLIST' , payload:response.cartlist.data.cart})
+        setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart:false} : item)))
       }
 
       const addItemToWishlist = async(product) => {

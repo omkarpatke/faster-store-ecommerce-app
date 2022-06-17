@@ -7,7 +7,8 @@ import { useWishlist, useCartlist, useUserAuth, useToastContext , useProducts} f
 import { getCartlist, getWishlist } from '../../api-calls/api-calls';
 
 export function Navbar() {
-    const { isLogIn , setIsLogIn } = useUserAuth();
+    const { isLogIn , setIsLogIn , userData } = useUserAuth();
+    const { name } = userData; 
     const [wishlistLength , setWishlistLength] = useState(0);
     const [cartlistLength , setCartlistLength] = useState(0);
     const { dispatch } = useProducts();
@@ -67,7 +68,10 @@ export function Navbar() {
         </div>
 
         <div className="user-profile">
-            <Link to='user-profile' title="User-Profile"><img className="user-profile-icon" src={ProfileImg} alt="user-profile"/></Link>
+            {name
+             ? <Link to='user-profile' title="User-Profile" className='user-icon'>{name && name.split('')[0].toUpperCase()}</Link>
+             : <Link to='user-profile' title="User-Profile"><img className="user-profile-icon" src={ProfileImg} alt="user-profile"/></Link>
+            }
         </div>
        </div>
     </nav>

@@ -13,7 +13,7 @@ export function SignUp() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const {setIsLogIn } = useUserAuth();
+  const {setIsLogIn , setUserData } = useUserAuth();
   const notify = useToastContext(); 
 
   const signupHandler = async (e) => {
@@ -33,11 +33,12 @@ export function SignUp() {
         if(getTokenFromLocalStorage){
           notify('You Are Successfully Signup!',{type:'success'});
           setIsLogIn(true);
+          setUserData({name, lastName, email, password});
           navigate(from , { replace:true });
         }
         }
       } catch (err) {
-        console.error(err);
+        notify(err,{type:'warning'});
       }
     }else{
       notify('Enter Empty Fields',{type:'warning'});
@@ -60,7 +61,7 @@ export function SignUp() {
                 <input type="email" name="user-email" required id="login-eamil-input" value={email} onChange={ event => setEmail(event.target.value)}/>
 
                 <label htmlFor="login-password" aria-required="true">Password<span>*</span></label>
-                <input type="password" name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}><i class="fa-solid fa-eye-slash"></i></input>
+                <input type="password" name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}></input>
 
                 <button className="login-btn" type="submit" onClick={(event) => signupHandler(event)}> Sign Up </button>
             </form>
