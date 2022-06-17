@@ -71,7 +71,7 @@ export function Cart() {
         }
         getTotalAmount();
         cartDispatch({type:'CHECKOUT_DETAILS' ,payload: [cartData ,deliveryCharges ,totalDiscountPrice , totalItemPrice, totalItemPrice - totalDiscountPrice + deliveryCharges]});
-    },[cartData ,deliveryCharges ,totalDiscountPrice , totalItemPrice]);
+    },[cartData ,deliveryCharges ,totalDiscountPrice , totalItemPrice , cartDispatch]);
 
     
     const removeItemFromCartlist = async(product) => {
