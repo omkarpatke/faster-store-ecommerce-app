@@ -1,37 +1,36 @@
 import React from 'react';
 import './ProductDetail.css';
 import { useParams , useNavigate } from 'react-router-dom';
-import { useProducts, useToastContext, useCartlist, useWishlist } from '../../context/index';
-import { addToCart , addToWishlist , removeFromWishlist } from '../../api-calls/api-calls';
+import { useProducts, useToastContext } from '../../context/index';
+import { useDispatch } from 'react-redux';
+import { addProductToCart } from '../../store/cartSlice';
+import { addProductToWishlist, removeProductFromWishlist } from '../../store/wishlistSlice';
+import { Navbar } from '../../components';
 
 export function ProductDetail() {
   const { productId } = useParams();
+  const dispatch = useDispatch();
   const { filteredData , setData } = useProducts();
-  const { cartDispatch } = useCartlist();
-  const { wishlistDispatch } = useWishlist();
   const notify = useToastContext();
   const currentProduct = filteredData.filter(item => item._id === productId)[0];
   const navigate = useNavigate();
   const { img, price, desc, rating, isAddedInWishlist, isItemAddedInCart } = currentProduct;
 
-  const addItemToCartlist = async(product) => {
-        const response = await addToCart(product);
+  const addItemToCartlist = (product) => {
+        dispatch(addProductToCart(product));
         notify('Item Added In Cart' , {type:'success'});
-        cartDispatch({type: 'ADD_TO_CART' , payload : response});
         setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
     } 
 
-    const addItemToWishlist = async(product) => {
-      const response = await addToWishlist(product);
+    const addItemToWishlist = (product) => {
+      dispatch(addProductToWishlist(product));
       notify('Item Added In Wishlist' , {type:'success'});
-      wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
       setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))    
     }
 
-    const removeItemFromWishlist = async(product) => {
-      const response = await removeFromWishlist(product);
+    const removeItemFromWishlist = (product) => {
+      dispatch(removeProductFromWishlist(product._id));
       notify('Item Remove From Wishlist' , {type:'success'});
-      wishlistDispatch({type: 'REMOVE_FROM_WISHLIST' , payload: response.wishlist})
       setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:false} : item)))
     }
   
@@ -39,6 +38,7 @@ export function ProductDetail() {
 
   return (
     <>
+    <Navbar showSearchBar={false} />
     <div className='product-detail-container'>
       <div className="img-setion">
       <img className='single-product-img' src={img} alt="cycle-img" />

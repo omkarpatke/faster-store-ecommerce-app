@@ -1,6 +1,6 @@
 import "./App.css";
 import { ProductDetail,ProfilePage, CheckoutPage, WishList, SignUp, SignIn, Cart, ProductListing, Home } from './pages/index';
-import {Navbar, Footer, RequiresAuth } from './components/index';
+import { Footer, RequiresAuth } from './components/index';
 import { Routes, Route } from "react-router-dom";
 import Mockman from 'mockman-js';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,7 +11,6 @@ function App() {
   
   return (
     <div className="App">
-      <Navbar />
       <Routes>
         <Route path='' element={<Home />} />
         <Route path='/products' exact element={<RequiresAuth><ProductListing /></RequiresAuth>} />
@@ -25,17 +24,11 @@ function App() {
         <Route path='/mock' exact element={<Mockman />} />
       </Routes>
       <ToastContainer 
-      position="top-right"
+      position="bottom-center"
       autoClose='1200'
       theme="light"
       />
       <Footer />
-
-      <ToastContainer 
-      position="top-right"
-      autoClose='1200'
-      theme="light"
-      />
     </div>
   );
 }

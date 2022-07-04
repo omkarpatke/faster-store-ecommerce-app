@@ -10,6 +10,7 @@ const useProducts = () => useContext(ProductContext);
 const ProductContextProvider = ({children}) => {
     const [loading , setLoading] = useState(true);
     const [data , setData] = useState([]);
+
     const highToLowPrice = (a,b) => {
        return [b.price - a.price];
     }
@@ -196,7 +197,7 @@ const searchedData = (products , searchInput) => {
                 return accu;
         }
     }
-    const [state , dispatch] = useReducer(reducer , {type:'none',payload:'none'});
+    const [state , productDispatch] = useReducer(reducer , {type:'none',payload:'none'});
 
 
     const getFilteredData = (products, searchInput) => {
@@ -229,7 +230,7 @@ const searchedData = (products , searchInput) => {
     },[])
     
     
-    return (<ProductContext.Provider value={{setData, loading , reducer , dispatch ,state ,filteredData , searchedData , data }}>{children}</ProductContext.Provider>)
+    return (<ProductContext.Provider value={{setData, loading , reducer , productDispatch ,state ,filteredData , searchedData , data }}>{children}</ProductContext.Provider>)
 }
 
 export {useProducts , ProductContextProvider};

@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useCartlist, useToastContext } from '../../context';
+import { Navbar } from '../../components';
+import { useCartlist, useProducts, useToastContext } from '../../context';
+import { clearCart } from '../../store/cartSlice';
 import './CheckoutPage.css';
 
 export function CheckoutPage() {
+    const { setData } = useProducts();
     const { cartState } = useCartlist();
+    const dispatch = useDispatch();
     const [userAddress , setUserAddress] = useState([]);
     const [name , setName] = useState('');
     const [address , setAddress] = useState('');
@@ -77,12 +82,14 @@ export function CheckoutPage() {
             let options = {
                 key:'rzp_test_z8ib7yVIg91K5b',
                 key_secret:'wDyuEwMiWo1rfx0WqO9bw7YW',
-                amount: cartState.checkout_details[4] *100,
+                amount: cartState.checkout_details[5] *100,
                 curreny:'INR',
-                name:'ECOMMERCE_PROJECT',
+                name:'Faster Cycles Store',
                 description:'for testing purpose',
                 handler: function(){
                     toast('Order Placed Successfully', {type:'success'});
+                    setData(prev => prev.map(item => item._id === 'dummyID' ? '' : {...item ,isItemAddedInCart:false}));
+                    dispatch(clearCart());
                     navigate('/products');
                 },
                 prefill:{
@@ -107,6 +114,7 @@ export function CheckoutPage() {
 
   return (
     <>
+    <Navbar showSearchBar={false} />
     <div className='checkout-container'>
         <h1 className='checkout-heading'>Checkout</h1>
         <div className="section-container">
@@ -151,10 +159,10 @@ export function CheckoutPage() {
                 <div className="border-bottom"></div>
                 <div className="checkout-items">
                     <div className="items">
-                        <div className='title'>items</div>
+                        <div className='title'>items({cartState.checkout_details[3]})</div>
                         <div className="items">
                             {cartState.checkout_details[0].map((cycle , index) => (
-                                <div key={index}>{cycle.desc}</div>
+                                <div key={index}>{cycle.desc}({cycle.quantity})</div>
                             ))}
                         </div>
                     </div>
@@ -172,7 +180,7 @@ export function CheckoutPage() {
                 <div className="border-bottom"></div>
                 <div className="checkout-items">
                     <div>MRP</div>
-                    <div>{cartState.checkout_details[3]}</div>
+                    <div>{cartState.checkout_details[4]}</div>
                 </div>
                 <div className="checkout-items">
                     <div>Discount</div>
@@ -185,7 +193,7 @@ export function CheckoutPage() {
                 <div className="border-bottom"></div>
                 <div className="checkout-items">
                     <div className='total-amount'>Total Amount</div>
-                    <div className='total-amount'>{cartState.checkout_details[4]}</div>
+                    <div className='total-amount'>{cartState.checkout_details[5]}</div>
                 </div>
                 <div className="border-bottom"></div>
                 <h2>Address</h2>

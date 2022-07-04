@@ -1,33 +1,28 @@
-import React , {useState , useEffect} from 'react';
-import { addToCart, removeFromWishlist } from '../../api-calls/api-calls';
-import { useCartlist, useProducts, useWishlist } from '../../context/index';
+import React from 'react';
+import { useProducts } from '../../context/index';
 import { Link } from 'react-router-dom';
 import './WishList.css';
+import { useSelector , useDispatch } from 'react-redux';
+import { removeProductFromWishlist } from '../../store/wishlistSlice';
+import { addProductToCart } from '../../store/cartSlice';
+import { Navbar } from '../../components';
 
 export function WishList() {
-    let {wishlistState , wishlistDispatch} = useWishlist();
-    let [wishlist , setWishlist] = useState([]);
-    let {setData} = useProducts();
-    const {cartDispatch} = useCartlist();
-
-    useEffect(() => {
-      if(wishlistState.type === 'ADD_TO_WISHLIST' || wishlistState.type === 'REMOVE_FROM_WISHLIST'){
-        setWishlist(wishlistState.payload)
-      }
-    },[wishlistState])
+    let { setData } = useProducts();
+    const dispatch = useDispatch();
+    const  { wishlist }  = useSelector(state => state);
+  
     
 
-    const removeItemFromWishlist = async(product) => {
-      const response = await removeFromWishlist(product);
-      wishlistDispatch({type: 'REMOVE_FROM_WISHLIST' , payload: response.wishlist});
+    const removeItemFromWishlist = (product) => {
+      dispatch(removeProductFromWishlist(product._id));
       setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:false} : item)))
     }
 
-    const addItemToCartlist = async(product) => {
-      const response = await addToCart(product);
-      cartDispatch({type: 'ADD_TO_CART' , payload : response});
-      setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
-      removeItemFromWishlist(product);
+    const addItemToCartlist = (product) => {
+      dispatch(addProductToCart(product));
+      dispatch(removeProductFromWishlist(product._id));
+      setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true , isAddedInWishlist:false} : item)));
     }
 
 
@@ -35,6 +30,7 @@ export function WishList() {
 
   return (
     <>
+    <Navbar showSearchBar={false}/>
     <div className="wishlist-main-container">
         <div className="wishlist-container">
             <h1 className="wishlist-heading">Wishlist ({wishlist.length})</h1>

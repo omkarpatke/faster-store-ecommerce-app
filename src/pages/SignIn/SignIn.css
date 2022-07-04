@@ -5,11 +5,12 @@
     justify-content:center;
     align-items: center;
     margin-top: 1.5rem;
+    min-height: 90vh;
     background: var(--gray-bg-color);
 }
 
 .login-heading{
-    padding-top: 2rem;
+    margin-top: 3rem;
     font-size: 1.8rem;
 }
 
@@ -25,7 +26,7 @@
     background-color: var(--white-color);
     cursor: pointer;
     transition: .3s all ease-in-out;
-    line-height: 2;
+    line-height: 2.5;
     text-align: initial;
 }
 
@@ -78,7 +79,9 @@
 }
 
 .login-btn:hover{
-    background-color: var(--black-color);
+    color: var(--primary-color);
+    background-color: var(--white-color);
+    border: 1px solid var(--primary-color);
 }
 
 .signIn-with-google-btn{
@@ -97,4 +100,15 @@
 
 .signIn-with-google-btn:hover{
     background-color: var(--black-color);
+}
+
+.password-input{
+    position: relative;
+}
+
+.eye-icon{
+    position: absolute;
+    top: 57.5%;
+    left: 57.5%;
+    font-size: 1.1rem;
 }
