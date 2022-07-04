@@ -59,8 +59,8 @@ export function Navbar({showSearchBar}) {
 
         <div className="user-profile">
             {name
-             ? <Link to='user-profile' title="User-Profile" className='user-icon'>{name && name.split('')[0].toUpperCase()}</Link>
-             : <Link to='user-profile' title="User-Profile"><img className="user-profile-icon" src={ProfileImg} alt="user-profile"/></Link>
+             ? <Link to='/user-profile' title="User-Profile" className='user-icon'>{name && name.split('')[0].toUpperCase()}</Link>
+             : <Link to='/user-profile' title="User-Profile"><img className="user-profile-icon" src={ProfileImg} alt="user-profile"/></Link>
             }
         </div>
        </div>
