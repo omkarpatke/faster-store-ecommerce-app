@@ -85,7 +85,7 @@ const addItemToWishlist = (product) => {
                 <input type="range"
                 name="cycle-range"
                 id="cycle-range"
-                min='8000'
+                min='10000'
                 max='30000'
                 value={rangeInput}
                 onChange={(e) => {
