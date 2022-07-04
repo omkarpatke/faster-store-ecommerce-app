@@ -11,7 +11,7 @@ export function Home() {
     <>
     <Navbar showSearchBar={false} />
     <div className="main-section">
-        <img className="img desk-img" src='https://faster-cycles-store.netlify.app/static/media/homeImg.580d4f23305451eb5206.jpg' alt="cycleImg"/>
+        <img className="img desk-img" src='https://github.com/omkarpatke/faster-store-ecommerce-app/blob/developement/src/Images/homeImg.jpg?raw=true' alt="cycleImg"/>
 
         <div className="guide-container">
             <h2 className='container-heading'>Cycle Guide</h2>
