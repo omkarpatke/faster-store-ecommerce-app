@@ -33,9 +33,9 @@ export function Footer() {
             <ul>
                 <h2 className="footer-links-heading">Follow Us</h2>
                 <div className="social-media-links">
-                    <li><Link to={{ pathname:"https://www.facebook.com/omkar.patke.1/" }} target="_blank" className="facebook-link"><i className="lni lni-facebook-original"></i></Link></li>
-                    <li><Link to={{ pathname:"https://twitter.com/omkar_patke" }} className="twitter-link"><i className="lni lni-twitter-original"></i></Link></li>
-                    <li><Link to={{ pathname:"https://www.linkedin.com/in/omkar-patke-a61b221ab/"}} className="linkedIn-link"><i className="lni lni-linkedin-original"></i></Link></li> 
+                    <li><a href="https://www.facebook.com/omkar.patke.1/" target="_blank" rel="noopener noreferrer" className="facebook-link"><i className="lni lni-facebook-original"></i></a></li>
+                    <li><a href="https://twitter.com/omkar_patke" target="_blank" rel="noopener noreferrer" className="twitter-link"><i className="lni lni-twitter-original"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/omkar-patke-a61b221ab/" className="linkedIn-link" target="_blank" rel="noopener noreferrer"><i className="lni lni-linkedin-original"></i></a></li>
                 </div>
             </ul>
         </div>
