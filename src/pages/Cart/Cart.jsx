@@ -70,7 +70,7 @@ export function Cart() {
         }
         getTotalAmount();
         cartDispatch({type:'CHECKOUT_DETAILS' ,payload: [cart ,deliveryCharges ,totalDiscountPrice , totalItemsQuantity, totalItemPrice, totalItemPrice - totalDiscountPrice + deliveryCharges]});
-    },[cart ,deliveryCharges ,totalDiscountPrice , totalItemPrice , cartDispatch]);
+    },[cart ,deliveryCharges ,totalDiscountPrice , totalItemPrice , cartDispatch ,totalItemsQuantity]);
 
     
     const removeItemFromCartlist = (product) => {
