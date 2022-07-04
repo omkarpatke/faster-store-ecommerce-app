@@ -22,7 +22,7 @@ export function WishList() {
     const addItemToCartlist = (product) => {
       dispatch(addProductToCart(product));
       dispatch(removeProductFromWishlist(product._id));
-      setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)));
+      setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true , isAddedInWishlist:false} : item)));
     }
 
 

@@ -24,17 +24,11 @@ function App() {
         <Route path='/mock' exact element={<Mockman />} />
       </Routes>
       <ToastContainer 
-      position="top-right"
+      position="bottom-center"
       autoClose='1200'
       theme="light"
       />
       <Footer />
-
-      <ToastContainer 
-      position="top-right"
-      autoClose='1200'
-      theme="light"
-      />
     </div>
   );
 }
