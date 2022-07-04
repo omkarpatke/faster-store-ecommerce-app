@@ -26,7 +26,7 @@ export function Home() {
                     <h2 className="guide-heading">LET US<span><h1>HELP</h1></span> YOU PICK </h2>
                     <h4 className="guide-desc">Our cycle guide can help you narrow 
                         your search.</h4>
-                    <Link to='/products' className="btn link-btn">Get Started</Link>
+                    <Link to='/products' className="btn link-btn"> Explore Now </Link>
                 </div>
             </div>
         </div>

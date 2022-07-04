@@ -100,9 +100,9 @@ export function Cart() {
                      <div className="product-desc">{item.desc}</div>
                      <div className="product-price">MRP: ₹{item.price} <span className='product-rating'>{item.rating}  <i className="lni lni-star-filled"></i></span></div>
                       <div className="item-quantity">
-                         <button onClick={() => increment(item._id)}> + </button>
-                         <div className="quantity">{item.quantity}</div>
                          <button onClick={() => item.quantity < 2 ? '' : decrement(item._id)}> - </button>
+                         <div className="quantity">{item.quantity}</div>
+                         <button onClick={() => increment(item._id)}> + </button>
                       </div>
                   </div>
                   <div className="product-links">
