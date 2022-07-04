@@ -42,11 +42,24 @@ export function SignIn() {
 
   }
 
-  const guestLoginHandler = () => {
-    notify('You Are Successfully Login!',{type:'success'});
-    setIsLogIn(true);
-    setUserData({email:'guest1234@gmail.com' ,password:'guest1234' , name : 'guestName' , lastName: 'guestLastName'});
-    navigate(from , {replace:true});
+  const guestLoginHandler = async() => {
+    try {
+      const response = await axios.post(`/api/auth/login`, {
+        email:'guest1234@gmail.com' ,password:'guest1234'
+      });
+      if(response.status === 200){
+        localStorage.setItem("token", response.data.encodedToken);
+        let getTokenFromLocalStorage = localStorage.getItem('token')
+        if(getTokenFromLocalStorage){
+          notify('You Are Successfully Login!',{type:'success'});
+          setIsLogIn(true);
+          setUserData({email:'guest1234@gmail.com' ,password:'guest1234' , name : 'guestName' , lastName: 'guestLastName'});
+          navigate(from , {replace:true});
+        }
+      } 
+    } catch (err) {
+      notify("The email you entered is not Registered. Please SignUp!",{type:'warning'});
+    } 
   }
 
   return (
