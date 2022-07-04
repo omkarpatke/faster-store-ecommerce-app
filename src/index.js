@@ -3,9 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
+import { Provider } from "react-redux";
+import { store } from './store/store';
 import { BrowserRouter } from "react-router-dom";
 import { ProductContextProvider, ToastContextProvider, UserContextProvider, CartListProvider, WishlistProvider } from "./context/index";
 makeServer();
+
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +19,9 @@ ReactDOM.render(
         <CartListProvider>
           <UserContextProvider>
             <ToastContextProvider>
-              <App />
+            <Provider store={store}>
+               <App />
+            </Provider>
             </ToastContextProvider>
           </UserContextProvider>
         </CartListProvider>

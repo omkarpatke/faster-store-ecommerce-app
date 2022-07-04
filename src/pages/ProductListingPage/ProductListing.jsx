@@ -1,15 +1,18 @@
-import { addToCart, addToWishlist, getCartlist, getWishlist ,removeFromWishlist} from '../../api-calls/api-calls';
-import { useProducts, useWishlist, useCartlist, useToastContext } from '../../context/index';
-import {useEffect , useState} from 'react'
+import { useProducts, useToastContext } from '../../context/index';
+import { useState } from 'react'
 import './ProductListing.css';
 import { useNavigate , Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addProductToWishlist, removeProductFromWishlist } from '../../store/wishlistSlice';
+import { addProductToCart } from '../../store/cartSlice';
+import { Navbar } from '../../components';
 
 
 export function ProductListing() {
+    const dispatch = useDispatch();
   const [fourStar , setFourstar] = useState();
   const [threeStar , setThreestar] = useState();
   const [twoStar , setTwostar] = useState();
-  const [oneStar , setOnestar] = useState();
   const [hurculesInput , setHurculesInput] = useState();
   const [montraInput , setMontraInput] = useState();
   const [machCityInput , setMachCityInput] = useState();
@@ -24,19 +27,15 @@ export function ProductListing() {
   const [kidBikeInput , setKidBikeInput] = useState();
   const [rangeInput , setRangeInput] = useState(8000);
   
-
-  const {wishlistDispatch} = useWishlist();
-  const {cartDispatch} = useCartlist();
-  const {loading ,dispatch ,filteredData , setData} = useProducts();
+  const { loading ,filteredData , setData , productDispatch } = useProducts();
   const navigate = useNavigate();
   const notify = useToastContext();
 
 const resetBtns = () => {
-    dispatch({type:'4STAR' , payload: false })
+    productDispatch({type:'4STAR' , payload: false })
     setFourstar(false);
     setThreestar(false);
     setTwostar(false);
-    setOnestar(false);
     setHurculesInput(false);
     setMachCityInput(false);
     setMontraInput(false);
@@ -53,45 +52,29 @@ const resetBtns = () => {
 }
 
 
-const addItemToWishlist = async(product) => {
-    const response = await addToWishlist(product);
+const addItemToWishlist = (product) => {
+    dispatch(addProductToWishlist(product));
     notify('Item Added In Wishlist' , {type:'success'});
-    wishlistDispatch({type: 'ADD_TO_WISHLIST' , payload : response.wishlist});
-    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)))
+    setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:true} : item)));
 }
 
- const removeItemFromWishlist = async(product) => {
-    const response = await removeFromWishlist(product);
+ const removeItemFromWishlist = (product) => {
+    dispatch(removeProductFromWishlist(product._id));
     notify('Item Remove From Wishlist' , {type:'success'});
-    wishlistDispatch({type: 'REMOVE_FROM_WISHLIST' , payload: response.wishlist})
     setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isAddedInWishlist:false} : item)))
   }
 
 
-const addItemToCartlist = async(product) => {    
-        const response = await addToCart(product);
+  const addItemToCartlist = (product) => {    
+        dispatch(addProductToCart(product));
         notify('Item Added In Cart' , {type:'success'});
-        cartDispatch({type: 'ADD_TO_CART' , payload : response});
         setData(prev => ([...prev].map(item => item._id === product._id ? {...item ,isItemAddedInCart :true} : item)))
     }
     
 
-
-
-useEffect(() => {
-  const response = getWishlist();
-  wishlistDispatch({type: 'WISHLIST' , payload: response.wishlist});
-},[wishlistDispatch])
-
-
-useEffect(() => {
-    const response = getCartlist();
-    cartDispatch({type: 'CARTLIST' , payload: response});
-},[cartDispatch])
-
-
   return (
     <>
+    <Navbar showSearchBar={true}/>
     <div className="cycles-main-container">
        <div className="filter-container">
            <h2 className="filter-name">FILTER <span><button className='clear-button' onClick={resetBtns}>Clear</button></span></h2>
@@ -106,7 +89,7 @@ useEffect(() => {
                 max='30000'
                 value={rangeInput}
                 onChange={(e) => {
-                    dispatch({type:'RANGE' , payload:e.target.value})
+                    productDispatch({type:'RANGE' , payload:e.target.value})
                     setRangeInput(e.target.value)
                 }}
                 
@@ -123,7 +106,7 @@ useEffect(() => {
                 name="sort"
                 checked={lowToHighInput}
                 onClick={(e) => {
-                    dispatch({type:'LOW_TO_HIGH' , payload:'low_to_high' , value: e.target.checked})
+                    productDispatch({type:'LOW_TO_HIGH' , payload:'low_to_high' , value: e.target.checked})
                     setLowToHighInput(true);
                     setHighToLowInput(false);
                 }}
@@ -137,7 +120,7 @@ useEffect(() => {
                 type="radio" 
                 name="sort"
                 checked={highToLowInput}
-                onClick={() => {dispatch({type:'HIGH_TO_LOW' , payload:'high_to_low'})
+                onClick={() => {productDispatch({type:'HIGH_TO_LOW' , payload:'high_to_low'})
                 setLowToHighInput(false);
                 setHighToLowInput(true);
             }}
@@ -155,11 +138,10 @@ useEffect(() => {
                 name='rating'
                 checked={fourStar}
                 onChange={(e) => {
-                    dispatch({type:'4STAR' , payload:e.target.checked})
+                    productDispatch({type:'4STAR' , payload:e.target.checked})
                     setFourstar(prev => !prev);
                     setThreestar(false);
                      setTwostar(false);
-                     setOnestar(false);
                     }
                 }
                 />
@@ -173,11 +155,10 @@ useEffect(() => {
                 name='rating'
                 checked={threeStar}
                 onClick={(e) =>{
-                     dispatch({type:'3STAR' , payload:e.target.checked})
+                    productDispatch({type:'3STAR' , payload:e.target.checked})
                      setThreestar(prev => !prev);
                      setFourstar(false);
                      setTwostar(false);
-                     setOnestar(false);
                     }}
                 />
                 <label htmlFor="3STAR"> 3 Star &Above</label>
@@ -190,31 +171,13 @@ useEffect(() => {
                 name='rating'
                 checked={twoStar}
                 onClick={(e) => {
-                    dispatch({type:'2STAR' , payload:e.target.checked})
+                    productDispatch({type:'2STAR' , payload:e.target.checked})
                     setTwostar(prev => !prev);
                     setFourstar(false);
                      setThreestar(false);
-                     setOnestar(false);
                 }}
                 />
                 <label htmlFor="2STAR"> 2 Star &Above</label>
-               </div>
-
-               <div className="check-box-input">
-                <input 
-                id='1STAR'
-                type="radio"
-                name='rating'
-                checked={oneStar}
-                onClick={(e) => {
-                    dispatch({type:'1STAR' , payload:e.target.checked})
-                    setOnestar(prev => !prev);
-                    setFourstar(false);
-                     setTwostar(false);
-                     setThreestar(false);
-                }}
-                />
-                <label htmlFor="1STAR"> 1 Star &Above</label>
                </div>
            </div>
 
@@ -227,7 +190,7 @@ useEffect(() => {
                 name="bike-type"
                 checked={cityBikeInput}
                 onClick={() => {
-                    dispatch({type: 'CITY_BIKES' ,payload : 'CITY_BIKES'})
+                    productDispatch({type: 'CITY_BIKES' ,payload : 'CITY_BIKES'})
                     setCityBikeInput(true);
                     setMountainBikeInput(false);
                     setKidBikeInput(false);
@@ -243,7 +206,7 @@ useEffect(() => {
                 name="bike-type"
                 checked={kidBikeInput}
                 onClick={() => {
-                    dispatch({type: 'KIDS_BIKES',payload : 'KIDS_BIKES'})
+                    productDispatch({type: 'KIDS_BIKES',payload : 'KIDS_BIKES'})
                     setCityBikeInput(false);
                     setMountainBikeInput(false);
                     setKidBikeInput(true);
@@ -259,7 +222,7 @@ useEffect(() => {
                 name="bike-type"
                 checked={mountainBikeInput}
                 onClick={() => {
-                    dispatch({type:'MOUNTAIN_BIKES',payload : 'MOUNTAIN_BIKES'})
+                    productDispatch({type:'MOUNTAIN_BIKES',payload : 'MOUNTAIN_BIKES'})
                     setCityBikeInput(false);
                     setMountainBikeInput(true);
                     setKidBikeInput(false);
@@ -277,7 +240,7 @@ useEffect(() => {
                 type="radio"
                 checked={hurculesInput}
                 onChange={(e) => {
-                    dispatch({type:'HERCULES' , payload:e.target.checked})
+                    productDispatch({type:'HERCULES' , payload:e.target.checked})
                     setHurculesInput(prev => !prev);
                     setMachCityInput(false)
                     setBsaInput(false)
@@ -294,7 +257,7 @@ useEffect(() => {
                 type="radio"
                 checked={machCityInput}
                 onChange={(e) => {
-                    dispatch({type:'MACH CITY' , payload:e.target.checked})
+                    productDispatch({type:'MACH CITY' , payload:e.target.checked})
                     setMachCityInput(prev => !prev);
                     setMachCityInput(true)
                     setBsaInput(false)
@@ -311,7 +274,7 @@ useEffect(() => {
                 type="radio"
                 checked={montraInput}
                 onChange={(e) => {
-                    dispatch({type:'MONTRA' , payload:e.target.checked})
+                    productDispatch({type:'MONTRA' , payload:e.target.checked})
                     setMontraInput(prev => !prev);
                     setMachCityInput(false)
                     setBsaInput(false)
@@ -328,7 +291,7 @@ useEffect(() => {
                 type="radio"
                 checked={roadeoInput}
                 onChange={(e) => {
-                    dispatch({type:'ROADEO' , payload:e.target.checked})
+                    productDispatch({type:'ROADEO' , payload:e.target.checked})
                     setRoadeoInput(prev => !prev)
                     setMachCityInput(false)
                     setBsaInput(false)
@@ -344,7 +307,7 @@ useEffect(() => {
                 id='BSA LADYBIRD'
                 type="radio"
                 checked={bsaInput}
-                onChange={(e) => {dispatch({type:'BSA LADYBIRD' , payload:e.target.checked})
+                onChange={(e) => {productDispatch({type:'BSA LADYBIRD' , payload:e.target.checked})
                 setBsaInput(prev => !prev);
                 setMachCityInput(false)
                 setBsaInput(true)
@@ -367,7 +330,7 @@ useEffect(() => {
                 name="gender"
                 checked={maleInput}
                 onChange={(e) => {
-                        dispatch({type:'MALE', payload : e.target.checked})
+                    productDispatch({type:'MALE', payload : e.target.checked})
                         setMaleInput(prev => !prev);
                     }}
                 />
@@ -381,7 +344,7 @@ useEffect(() => {
                 name="gender"
                 checked={femaleInput}
                 onChange={(e) => {
-                    dispatch({type:'FEMALE', payload : e.target.checked})
+                    productDispatch({type:'FEMALE', payload : e.target.checked})
                     setFemaleInput(prev => !prev);
                 }}
                 />
@@ -394,7 +357,7 @@ useEffect(() => {
 
        <div className="products-container">
            {loading ? 'Loading...' :
-           filteredData && filteredData.map((product) => (
+          filteredData && filteredData.map((product) => (
               <div className="product" key={product._id}>
                 {product.isAddedInWishlist 
                  ?<i className='lni lni-heart-filled' id="product-wishlist-icon" onClick={() => removeItemFromWishlist(product)}></i>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import './SignIn.css';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useUserAuth, useToastContext } from '../../context/index';
+import { Navbar } from '../../components';
 
 
 export function SignIn() {
@@ -13,6 +14,7 @@ export function SignIn() {
    const location = useLocation();
    const from = location.state?.from?.pathname || "/" ;
    const notify  = useToastContext();
+   const [hidePassword , setHidepassword] = useState(true); 
 
    const loginHandler = async(e) => {
      e.preventDefault();
@@ -27,12 +29,12 @@ export function SignIn() {
           if(getTokenFromLocalStorage){
             notify('You Are Successfully Login!',{type:'success'});
             setIsLogIn(true);
-            setUserData({email ,password , name : 'guestName' , lastName: 'guestLastName'});
+            setUserData({email ,password , name:'guestName' , lastName: 'guestLastName'});
             navigate(from , {replace:true});
           }
         } 
       } catch (err) {
-          alert("The email you entered is not Registered. Please SignUp!");
+        notify("The email you entered is not Registered. Please SignUp!",{type:'warning'});
       }
      }else{
       notify('Enter Empty Fields',{type:'warning'});
@@ -41,31 +43,31 @@ export function SignIn() {
   }
 
   const guestLoginHandler = () => {
-    setEmail('guest1234@gmail.com');
-    setPassword('guest1234')
+    notify('You Are Successfully Login!',{type:'success'});
+    setIsLogIn(true);
+    setUserData({email:'guest1234@gmail.com' ,password:'guest1234' , name : 'guestName' , lastName: 'guestLastName'});
+    navigate(from , {replace:true});
   }
 
   return (
     <>
+    <Navbar showSearchBar={false}/>
     <div className="login-container">
         <h3 className="login-heading">Account Information</h3>
         <div className="login-card">
             <h2>LogIn</h2>
             <form className="logIn-form" onSubmit={loginHandler}>
-                <label htmlFor='login-eamil-input' aria-required="true">E-mail address<span>*</span></label>
-                <input type="email" name="user-email" id="login-eamil-input" value={email} onChange={e => setEmail(e.target.value)}/>
+            <label htmlFor='login-eamil-input' aria-required="true">E-mail address<span>*</span></label>
+                <input type="email" placeholder='johncena@gmail.com' name="user-email" required id="login-eamil-input" value={email} onChange={ event => setEmail(event.target.value)}/>
 
-                <label htmlFor='login-password' aria-required="true">Password<span>*</span></label>
-                <input type="password" name="login-password" id="login-password" value={password} onChange={e => setPassword(e.target.value)}/>
+                <label htmlFor="login-password" aria-required="true">Password<span>*</span></label>
+                <input className='password-input' type={hidePassword ? "password" : 'text'} placeholder='********' name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}/>
+                <i className={ hidePassword ? 'bi bi-eye-slash eye-icon' : 'bi bi-eye eye-icon'} id="togglePassword" onClick={() => setHidepassword(prev => !prev)}></i>
 
-                <button className="forgot-password-link">Forgot your password?</button>
 
                 <button className="login-btn" type="submit" onClick={loginHandler}> Login In </button>
             </form>
             <button className="login-btn" type="submit" onClick={guestLoginHandler}> Login as Guest </button>
-            <h2>OR</h2>
-            <button className="signIn-with-google-btn"><i className="lni lni-google"></i> <span className='signInWithGoogleBtnText'>Sign in with google</span></button>
-
             <p>I Don't Have An Account</p>
             <Link to='/sign-up'>CREATE AN ACCOUNT</Link>
         </div>

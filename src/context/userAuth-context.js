@@ -11,9 +11,11 @@ const UserContextProvider = ({children}) => {
     const [isLogIn , setIsLogIn] = useState(false);
     const [userData , setUserData] = useState([]);
 
+
     useEffect(() => {
        if(localStorage.getItem('token')){
            setIsLogIn(true);
+           setUserData({name:'guest' , lastName:'guestLastName' , email:'guest1234@gmail.com'});
        }else{
            setIsLogIn(false);
        }

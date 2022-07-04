@@ -1,16 +1,17 @@
 import React from 'react';
 import './Home.css';
 import {  Link } from "react-router-dom";
-import homeImg from '../../Images/homeImg.jpg';
 import { useUserAuth, useToastContext } from '../../context/index';
+import { Navbar } from '../../components';
 
 export function Home() {
     const { isLogIn } = useUserAuth();
     const notify = useToastContext();
   return (
     <>
+    <Navbar showSearchBar={false} />
     <div className="main-section">
-        <img className="img desk-img" src={homeImg} alt="cycleImg"/>
+        <img className="img desk-img" src='https://faster-cycles-store.netlify.app/static/media/homeImg.580d4f23305451eb5206.jpg' alt="cycleImg"/>
 
         <div className="guide-container">
             <h2 className='container-heading'>Cycle Guide</h2>

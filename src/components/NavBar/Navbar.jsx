@@ -1,39 +1,26 @@
-import React , { useState, useEffect } from 'react';
+import React from 'react';
 import './Navbar.css';
 import NavLogo from '../../Images/cycle-favicon.png';
 import ProfileImg from '../../Images/pngwing.com.png';
 import {  Link , useNavigate } from "react-router-dom";
-import { useWishlist, useCartlist, useUserAuth, useToastContext , useProducts} from '../../context/index';
-import { getCartlist, getWishlist } from '../../api-calls/api-calls';
+import { useUserAuth, useToastContext , useProducts} from '../../context/index';
+import { useSelector } from 'react-redux';
 
-export function Navbar() {
-    const { isLogIn , setIsLogIn , userData } = useUserAuth();
+export function Navbar({showSearchBar}) {
+    const { isLogIn , setIsLogIn , userData , setUserData } = useUserAuth();
     const { name } = userData; 
-    const [wishlistLength , setWishlistLength] = useState(0);
-    const [cartlistLength , setCartlistLength] = useState(0);
-    const { dispatch } = useProducts();
+    const { productDispatch } = useProducts();
     const notify = useToastContext();
     const navigate = useNavigate();
-    let cartState = useCartlist();
-    let wishlistState = useWishlist();
+   const { cart , wishlist } = useSelector(state => state);
 
-
-    const getData = async() => {
-        const getCartLength = await getCartlist();
-        const getWishListLength = await getWishlist();
-        setWishlistLength(getWishListLength.wishlist.length);
-        setCartlistLength(getCartLength.cart.length);
-    }
-
-    useEffect(() => {
-        getData();
-    },[cartState , wishlistState]);
 
 
     const logoutHandler = () => {
         notify('You Are Successfully Logout!' , {type:'success'});
         setIsLogIn(false);
         localStorage.clear();
+        setUserData('');
         navigate('/');
      }
 
@@ -50,21 +37,24 @@ export function Navbar() {
     <nav className="navbar">
         <div className="nav-brand">
         <Link to='/products' className='nav-brand-name'> Faster Cycle Store </Link> 
-        <Link to=''><img src={NavLogo} alt="brand-img" className="nav-brand-img" /></Link> 
+        <Link to='/'><img src={NavLogo} alt="brand-img" className="nav-brand-img" /></Link> 
         </div>
        <div className="nav-contents">
-        <div className="search-bar">
-            <input type="search" placeholder="Search" className="search-input" onChange={(e) => dispatch({type:'SEARCH_INPUT' , payload: e.target.value })}/>
+        {showSearchBar
+        ? <div className="search-bar">
+            <input type="search" placeholder="Search" className="search-input" onChange={(e) => productDispatch({type:'SEARCH_INPUT' , payload: e.target.value })}/>
         </div>
+        : ''
+        }
 
         <div className="wishlist">
             <Link to='/wishlist' className="nav-wishlist-icon" title="WishList"><i className="lni lni-heart"></i></Link>
-            <span className="wishlist-items-number">{isLogIn ? wishlistLength : '0'}</span>
+            <span className="wishlist-items-number">{isLogIn ? wishlist.length : '0'}</span>
         </div>
 
         <div className="cart">
             <Link to='/cart' className="cart-icon" title="Cart"><i className="lni lni-cart-full"></i></Link>
-            <span className="cart-items-number">{isLogIn ? cartlistLength : '0'}</span>
+            <span className="cart-items-number">{isLogIn ? cart.length : '0'}</span>
         </div>
 
         <div className="user-profile">
